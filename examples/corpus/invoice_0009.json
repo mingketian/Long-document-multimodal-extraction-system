@@ -1,0 +1,781 @@
+{
+  "document": {
+    "document_id": "invoice_0009",
+    "source_path": null,
+    "metadata": {
+      "synthetic": true,
+      "generator": "tools/make_examples.py"
+    },
+    "pages": [
+      {
+        "page_number": 1,
+        "width": 1240,
+        "height": 1754,
+        "blocks": [
+          {
+            "block_id": "p1b0",
+            "block_type": "title",
+            "text": "Meridian Components Ltd",
+            "bbox": [
+              0.08,
+              0.04,
+              0.92,
+              0.09
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p1b1",
+            "block_type": "page_header",
+            "text": "Page 1",
+            "bbox": [
+              0.08,
+              0.01,
+              0.92,
+              0.035
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p1b2",
+            "block_type": "key_value",
+            "text": "Invoice No: INV-20260009",
+            "bbox": [
+              0.08,
+              0.12,
+              0.92,
+              0.15
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p1b3",
+            "block_type": "key_value",
+            "text": "Invoice Date: 2026-05-04",
+            "bbox": [
+              0.08,
+              0.155,
+              0.92,
+              0.185
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p1b4",
+            "block_type": "key_value",
+            "text": "Purchase Order: PO-13316",
+            "bbox": [
+              0.08,
+              0.19,
+              0.92,
+              0.22
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p1b5",
+            "block_type": "key_value",
+            "text": "Bill To: Foundry Robotics Corp",
+            "bbox": [
+              0.08,
+              0.225,
+              0.92,
+              0.255
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p1b6",
+            "block_type": "key_value",
+            "text": "Payment Terms: Net 60",
+            "bbox": [
+              0.08,
+              0.26,
+              0.92,
+              0.29
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p1b7",
+            "block_type": "table_header",
+            "text": "line_number  description  quantity  unit_price  amount",
+            "bbox": [
+              0.08,
+              0.34,
+              0.92,
+              0.37
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p1b8",
+            "block_type": "table_row",
+            "text": "1  Mounting bracket, powder-coated  16  \u00a330.33  \u00a3485.28",
+            "bbox": [
+              0.08,
+              0.39,
+              0.92,
+              0.42
+            ],
+            "confidence": 0.99,
+            "row_index": 1
+          },
+          {
+            "block_id": "p1b9",
+            "block_type": "table_row",
+            "text": "2  Hydraulic seal kit, type B  3  \u00a3136.86  \u00a3410.58",
+            "bbox": [
+              0.08,
+              0.425,
+              0.92,
+              0.455
+            ],
+            "confidence": 0.99,
+            "row_index": 2
+          },
+          {
+            "block_id": "p1b10",
+            "block_type": "table_row",
+            "text": "3  Coolant reservoir, 4L  33  \u00a3415.08  \u00a313,697.64",
+            "bbox": [
+              0.08,
+              0.46,
+              0.92,
+              0.49
+            ],
+            "confidence": 0.99,
+            "row_index": 3
+          },
+          {
+            "block_id": "p1b11",
+            "block_type": "table_row",
+            "text": "4  Stainless fastener set (250 ct)  12  \u00a3127.97  \u00a31,535.64",
+            "bbox": [
+              0.08,
+              0.495,
+              0.92,
+              0.525
+            ],
+            "confidence": 0.99,
+            "row_index": 4
+          },
+          {
+            "block_id": "p1b12",
+            "block_type": "table_row",
+            "text": "5  Control module firmware licence  32  \u00a334.76  \u00a31,112.32",
+            "bbox": [
+              0.08,
+              0.53,
+              0.92,
+              0.56
+            ],
+            "confidence": 0.99,
+            "row_index": 5
+          },
+          {
+            "block_id": "p1b13",
+            "block_type": "table_row",
+            "text": "6  Stainless fastener set (250 ct)  28  \u00a3365.13  \u00a310,223.64",
+            "bbox": [
+              0.08,
+              0.565,
+              0.92,
+              0.595
+            ],
+            "confidence": 0.99,
+            "row_index": 6
+          },
+          {
+            "block_id": "p1b14",
+            "block_type": "page_footer",
+            "text": "Continued on next page",
+            "bbox": [
+              0.08,
+              0.95,
+              0.92,
+              0.98
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          }
+        ]
+      },
+      {
+        "page_number": 2,
+        "width": 1240,
+        "height": 1754,
+        "blocks": [
+          {
+            "block_id": "p2b0",
+            "block_type": "page_header",
+            "text": "INV-20260009 \u2014 Page 2",
+            "bbox": [
+              0.08,
+              0.01,
+              0.92,
+              0.035
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p2b1",
+            "block_type": "table_header",
+            "text": "line_number  description  quantity  unit_price  amount",
+            "bbox": [
+              0.08,
+              0.06,
+              0.92,
+              0.09
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p2b2",
+            "block_type": "table_row",
+            "text": "7  Mounting bracket, powder-coated  37  \u00a3108.21  \u00a34,003.77",
+            "bbox": [
+              0.08,
+              0.11,
+              0.92,
+              0.14
+            ],
+            "confidence": 0.99,
+            "row_index": 7
+          },
+          {
+            "block_id": "p2b3",
+            "block_type": "table_row",
+            "text": "8  Stainless fastener set (250 ct)  13  \u00a3316.60  \u00a34,115.80",
+            "bbox": [
+              0.08,
+              0.145,
+              0.92,
+              0.175
+            ],
+            "confidence": 0.99,
+            "row_index": 8
+          },
+          {
+            "block_id": "p2b4",
+            "block_type": "table_row",
+            "text": "9  Hydraulic seal kit, type B  3  \u00a3394.97  \u00a31,184.91",
+            "bbox": [
+              0.08,
+              0.18,
+              0.92,
+              0.21
+            ],
+            "confidence": 0.99,
+            "row_index": 9
+          },
+          {
+            "block_id": "p2b5",
+            "block_type": "table_row",
+            "text": "10  Stainless fastener set (250 ct)  4  \u00a357.59  \u00a3230.36",
+            "bbox": [
+              0.08,
+              0.215,
+              0.92,
+              0.245
+            ],
+            "confidence": 0.99,
+            "row_index": 10
+          },
+          {
+            "block_id": "p2b6",
+            "block_type": "table_row",
+            "text": "11  Stainless fastener set (250 ct)  23  \u00a3241.15  \u00a35,546.45",
+            "bbox": [
+              0.08,
+              0.25,
+              0.92,
+              0.28
+            ],
+            "confidence": 0.99,
+            "row_index": 11
+          },
+          {
+            "block_id": "p2b7",
+            "block_type": "table_row",
+            "text": "12  Calibration service, on-site  24  \u00a3435.90  \u00a310,461.60",
+            "bbox": [
+              0.08,
+              0.285,
+              0.92,
+              0.315
+            ],
+            "confidence": 0.99,
+            "row_index": 12
+          },
+          {
+            "block_id": "p2b8",
+            "block_type": "page_footer",
+            "text": "Continued on next page",
+            "bbox": [
+              0.08,
+              0.95,
+              0.92,
+              0.98
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          }
+        ]
+      },
+      {
+        "page_number": 3,
+        "width": 1240,
+        "height": 1754,
+        "blocks": [
+          {
+            "block_id": "p3b0",
+            "block_type": "page_header",
+            "text": "INV-20260009 \u2014 Page 3",
+            "bbox": [
+              0.08,
+              0.01,
+              0.92,
+              0.035
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p3b1",
+            "block_type": "table_header",
+            "text": "line_number  description  quantity  unit_price  amount",
+            "bbox": [
+              0.08,
+              0.06,
+              0.92,
+              0.09
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p3b2",
+            "block_type": "table_row",
+            "text": "13  Hydraulic seal kit, type B  19  \u00a3414.40  \u00a37,873.60",
+            "bbox": [
+              0.08,
+              0.11,
+              0.92,
+              0.14
+            ],
+            "confidence": 0.99,
+            "row_index": 13
+          },
+          {
+            "block_id": "p3b3",
+            "block_type": "table_row",
+            "text": "14  Replacement drive belt, HD  2  \u00a364.94  \u00a3129.88",
+            "bbox": [
+              0.08,
+              0.145,
+              0.92,
+              0.175
+            ],
+            "confidence": 0.99,
+            "row_index": 14
+          },
+          {
+            "block_id": "p3b4",
+            "block_type": "table_row",
+            "text": "15  Thermal insulation panel, 1.2m  33  \u00a3453.79  \u00a314,975.07",
+            "bbox": [
+              0.08,
+              0.18,
+              0.92,
+              0.21
+            ],
+            "confidence": 0.99,
+            "row_index": 15
+          },
+          {
+            "block_id": "p3b5",
+            "block_type": "table_row",
+            "text": "16  Control module firmware licence  32  \u00a3166.35  \u00a35,323.20",
+            "bbox": [
+              0.08,
+              0.215,
+              0.92,
+              0.245
+            ],
+            "confidence": 0.99,
+            "row_index": 16
+          }
+        ]
+      },
+      {
+        "page_number": 4,
+        "width": 1240,
+        "height": 1754,
+        "blocks": [
+          {
+            "block_id": "p4b0",
+            "block_type": "heading",
+            "text": "TERMS AND CONDITIONS OF SALE",
+            "bbox": [
+              0.08,
+              0.05,
+              0.92,
+              0.09
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p4b1",
+            "block_type": "paragraph",
+            "text": "All goods remain the property of the seller until paid for in full. Risk passes on delivery. Claims for shortage or damage must be notified in writing within seven days of receipt.",
+            "bbox": [
+              0.08,
+              0.12,
+              0.92,
+              0.22
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p4b2",
+            "block_type": "paragraph",
+            "text": "The seller shall not be liable for any indirect or consequential loss howsoever arising. Nothing in these terms limits liability for death or personal injury caused by negligence.",
+            "bbox": [
+              0.08,
+              0.24,
+              0.92,
+              0.34
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          }
+        ]
+      },
+      {
+        "page_number": 5,
+        "width": 1240,
+        "height": 1754,
+        "blocks": [
+          {
+            "block_id": "p5b0",
+            "block_type": "page_header",
+            "text": "INV-20260009 \u2014 Page 5",
+            "bbox": [
+              0.08,
+              0.01,
+              0.92,
+              0.035
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p5b1",
+            "block_type": "key_value",
+            "text": "Subtotal: \u00a381,309.74",
+            "bbox": [
+              0.08,
+              0.3,
+              0.92,
+              0.33
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p5b2",
+            "block_type": "key_value",
+            "text": "Sales Tax (8.25%): \u00a36,708.05",
+            "bbox": [
+              0.08,
+              0.34,
+              0.92,
+              0.37
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p5b3",
+            "block_type": "key_value",
+            "text": "Total Amount Due: \u00a388,017.79",
+            "bbox": [
+              0.08,
+              0.38,
+              0.92,
+              0.42
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p5b4",
+            "block_type": "key_value",
+            "text": "Currency: GBP",
+            "bbox": [
+              0.08,
+              0.43,
+              0.92,
+              0.46
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p5b5",
+            "block_type": "paragraph",
+            "text": "Remit to Meridian Components Ltd. Payment terms: Net 60.",
+            "bbox": [
+              0.08,
+              0.5,
+              0.92,
+              0.54
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          }
+        ]
+      }
+    ]
+  },
+  "gold": {
+    "invoice_number": "INV-20260009",
+    "invoice_date": "2026-05-04",
+    "purchase_order": "PO-13316",
+    "vendor_name": "Meridian Components Ltd",
+    "bill_to": "Foundry Robotics Corp",
+    "currency": "GBP",
+    "subtotal": "\u00a381,309.74",
+    "tax_total": "\u00a36,708.05",
+    "total_amount": "\u00a388,017.79",
+    "payment_terms": "Net 60",
+    "line_items": [
+      {
+        "line_number": 1,
+        "description": "Mounting bracket, powder-coated",
+        "quantity": 16.0,
+        "unit_price": "\u00a330.33",
+        "amount": "\u00a3485.28"
+      },
+      {
+        "line_number": 2,
+        "description": "Hydraulic seal kit, type B",
+        "quantity": 3.0,
+        "unit_price": "\u00a3136.86",
+        "amount": "\u00a3410.58"
+      },
+      {
+        "line_number": 3,
+        "description": "Coolant reservoir, 4L",
+        "quantity": 33.0,
+        "unit_price": "\u00a3415.08",
+        "amount": "\u00a313,697.64"
+      },
+      {
+        "line_number": 4,
+        "description": "Stainless fastener set (250 ct)",
+        "quantity": 12.0,
+        "unit_price": "\u00a3127.97",
+        "amount": "\u00a31,535.64"
+      },
+      {
+        "line_number": 5,
+        "description": "Control module firmware licence",
+        "quantity": 32.0,
+        "unit_price": "\u00a334.76",
+        "amount": "\u00a31,112.32"
+      },
+      {
+        "line_number": 6,
+        "description": "Stainless fastener set (250 ct)",
+        "quantity": 28.0,
+        "unit_price": "\u00a3365.13",
+        "amount": "\u00a310,223.64"
+      },
+      {
+        "line_number": 7,
+        "description": "Mounting bracket, powder-coated",
+        "quantity": 37.0,
+        "unit_price": "\u00a3108.21",
+        "amount": "\u00a34,003.77"
+      },
+      {
+        "line_number": 8,
+        "description": "Stainless fastener set (250 ct)",
+        "quantity": 13.0,
+        "unit_price": "\u00a3316.60",
+        "amount": "\u00a34,115.80"
+      },
+      {
+        "line_number": 9,
+        "description": "Hydraulic seal kit, type B",
+        "quantity": 3.0,
+        "unit_price": "\u00a3394.97",
+        "amount": "\u00a31,184.91"
+      },
+      {
+        "line_number": 10,
+        "description": "Stainless fastener set (250 ct)",
+        "quantity": 4.0,
+        "unit_price": "\u00a357.59",
+        "amount": "\u00a3230.36"
+      },
+      {
+        "line_number": 11,
+        "description": "Stainless fastener set (250 ct)",
+        "quantity": 23.0,
+        "unit_price": "\u00a3241.15",
+        "amount": "\u00a35,546.45"
+      },
+      {
+        "line_number": 12,
+        "description": "Calibration service, on-site",
+        "quantity": 24.0,
+        "unit_price": "\u00a3435.90",
+        "amount": "\u00a310,461.60"
+      },
+      {
+        "line_number": 13,
+        "description": "Hydraulic seal kit, type B",
+        "quantity": 19.0,
+        "unit_price": "\u00a3414.40",
+        "amount": "\u00a37,873.60"
+      },
+      {
+        "line_number": 14,
+        "description": "Replacement drive belt, HD",
+        "quantity": 2.0,
+        "unit_price": "\u00a364.94",
+        "amount": "\u00a3129.88"
+      },
+      {
+        "line_number": 15,
+        "description": "Thermal insulation panel, 1.2m",
+        "quantity": 33.0,
+        "unit_price": "\u00a3453.79",
+        "amount": "\u00a314,975.07"
+      },
+      {
+        "line_number": 16,
+        "description": "Control module firmware licence",
+        "quantity": 32.0,
+        "unit_price": "\u00a3166.35",
+        "amount": "\u00a35,323.20"
+      }
+    ]
+  },
+  "gold_evidence": {
+    "invoice_number": [
+      {
+        "page_number": 1,
+        "block_id": "p1b2"
+      }
+    ],
+    "invoice_date": [
+      {
+        "page_number": 1,
+        "block_id": "p1b3"
+      }
+    ],
+    "purchase_order": [
+      {
+        "page_number": 1,
+        "block_id": "p1b4"
+      }
+    ],
+    "vendor_name": [
+      {
+        "page_number": 1,
+        "block_id": "p1b0"
+      },
+      {
+        "page_number": 5,
+        "block_id": "p5b5"
+      }
+    ],
+    "bill_to": [
+      {
+        "page_number": 1,
+        "block_id": "p1b5"
+      }
+    ],
+    "currency": [
+      {
+        "page_number": 5,
+        "block_id": "p5b4"
+      }
+    ],
+    "subtotal": [
+      {
+        "page_number": 5,
+        "block_id": "p5b1"
+      }
+    ],
+    "tax_total": [
+      {
+        "page_number": 5,
+        "block_id": "p5b2"
+      }
+    ],
+    "total_amount": [
+      {
+        "page_number": 5,
+        "block_id": "p5b3"
+      }
+    ],
+    "payment_terms": [
+      {
+        "page_number": 1,
+        "block_id": "p1b6"
+      },
+      {
+        "page_number": 5,
+        "block_id": "p5b5"
+      }
+    ],
+    "line_items": [
+      {
+        "page_number": 1
+      },
+      {
+        "page_number": 2
+      },
+      {
+        "page_number": 3
+      }
+    ]
+  },
+  "row_pages": {
+    "line_items": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      3
+    ]
+  }
+}

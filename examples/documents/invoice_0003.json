@@ -1,0 +1,552 @@
+{
+  "document_id": "invoice_0003",
+  "source_path": null,
+  "metadata": {
+    "synthetic": true,
+    "generator": "tools/make_examples.py"
+  },
+  "pages": [
+    {
+      "page_number": 1,
+      "width": 1240,
+      "height": 1754,
+      "blocks": [
+        {
+          "block_id": "p1b0",
+          "block_type": "title",
+          "text": "Baltic Logistics GmbH",
+          "bbox": [
+            0.08,
+            0.04,
+            0.92,
+            0.09
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p1b1",
+          "block_type": "page_header",
+          "text": "Page 1",
+          "bbox": [
+            0.08,
+            0.01,
+            0.92,
+            0.035
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p1b2",
+          "block_type": "key_value",
+          "text": "Invoice No: INV-20260003",
+          "bbox": [
+            0.08,
+            0.12,
+            0.92,
+            0.15
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p1b3",
+          "block_type": "key_value",
+          "text": "Invoice Date: 2026-11-11",
+          "bbox": [
+            0.08,
+            0.155,
+            0.92,
+            0.185
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p1b4",
+          "block_type": "key_value",
+          "text": "Purchase Order: PO-64346",
+          "bbox": [
+            0.08,
+            0.19,
+            0.92,
+            0.22
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p1b5",
+          "block_type": "key_value",
+          "text": "Bill To: Lattice Energy Partners",
+          "bbox": [
+            0.08,
+            0.225,
+            0.92,
+            0.255
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p1b6",
+          "block_type": "key_value",
+          "text": "Payment Terms: Due on receipt",
+          "bbox": [
+            0.08,
+            0.26,
+            0.92,
+            0.29
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p1b7",
+          "block_type": "table_header",
+          "text": "line_number  description  quantity  unit_price  amount",
+          "bbox": [
+            0.08,
+            0.34,
+            0.92,
+            0.37
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p1b8",
+          "block_type": "table_row",
+          "text": "1  Cable harness, 3m shielded  2  \u20ac128.72  \u20ac257.44",
+          "bbox": [
+            0.08,
+            0.39,
+            0.92,
+            0.42
+          ],
+          "confidence": 0.99,
+          "row_index": 1
+        },
+        {
+          "block_id": "p1b9",
+          "block_type": "table_row",
+          "text": "2  Coolant reservoir, 4L  8  \u20ac415.63  \u20ac3,325.04",
+          "bbox": [
+            0.08,
+            0.425,
+            0.92,
+            0.455
+          ],
+          "confidence": 0.99,
+          "row_index": 2
+        },
+        {
+          "block_id": "p1b10",
+          "block_type": "table_row",
+          "text": "3  Replacement drive belt, HD  25  \u20ac28.81  \u20ac720.25",
+          "bbox": [
+            0.08,
+            0.46,
+            0.92,
+            0.49
+          ],
+          "confidence": 0.99,
+          "row_index": 3
+        },
+        {
+          "block_id": "p1b11",
+          "block_type": "table_row",
+          "text": "4  Hydraulic seal kit, type B  2  \u20ac382.58  \u20ac765.16",
+          "bbox": [
+            0.08,
+            0.495,
+            0.92,
+            0.525
+          ],
+          "confidence": 0.99,
+          "row_index": 4
+        },
+        {
+          "block_id": "p1b12",
+          "block_type": "table_row",
+          "text": "5  Stainless fastener set (250 ct)  6  \u20ac175.06  \u20ac1,050.36",
+          "bbox": [
+            0.08,
+            0.53,
+            0.92,
+            0.56
+          ],
+          "confidence": 0.99,
+          "row_index": 5
+        },
+        {
+          "block_id": "p1b13",
+          "block_type": "table_row",
+          "text": "6  Hydraulic seal kit, type B  27  \u20ac340.45  \u20ac9,192.15",
+          "bbox": [
+            0.08,
+            0.565,
+            0.92,
+            0.595
+          ],
+          "confidence": 0.99,
+          "row_index": 6
+        },
+        {
+          "block_id": "p1b14",
+          "block_type": "page_footer",
+          "text": "Continued on next page",
+          "bbox": [
+            0.08,
+            0.95,
+            0.92,
+            0.98
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        }
+      ]
+    },
+    {
+      "page_number": 2,
+      "width": 1240,
+      "height": 1754,
+      "blocks": [
+        {
+          "block_id": "p2b0",
+          "block_type": "page_header",
+          "text": "INV-20260003 \u2014 Page 2",
+          "bbox": [
+            0.08,
+            0.01,
+            0.92,
+            0.035
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p2b1",
+          "block_type": "table_header",
+          "text": "line_number  description  quantity  unit_price  amount",
+          "bbox": [
+            0.08,
+            0.06,
+            0.92,
+            0.09
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p2b2",
+          "block_type": "table_row",
+          "text": "7  Cable harness, 3m shielded  28  \u20ac241.92  \u20ac6,773.76",
+          "bbox": [
+            0.08,
+            0.11,
+            0.92,
+            0.14
+          ],
+          "confidence": 0.99,
+          "row_index": 7
+        },
+        {
+          "block_id": "p2b3",
+          "block_type": "table_row",
+          "text": "8  Mounting bracket, powder-coated  11  \u20ac224.42  \u20ac2,468.62",
+          "bbox": [
+            0.08,
+            0.145,
+            0.92,
+            0.175
+          ],
+          "confidence": 0.99,
+          "row_index": 8
+        },
+        {
+          "block_id": "p2b4",
+          "block_type": "table_row",
+          "text": "9  Replacement drive belt, HD  26  \u20ac97.94  \u20ac2,546.44",
+          "bbox": [
+            0.08,
+            0.18,
+            0.92,
+            0.21
+          ],
+          "confidence": 0.99,
+          "row_index": 9
+        },
+        {
+          "block_id": "p2b5",
+          "block_type": "table_row",
+          "text": "10  Replacement drive belt, HD  39  \u20ac369.82  \u20ac14,422.98",
+          "bbox": [
+            0.08,
+            0.215,
+            0.92,
+            0.245
+          ],
+          "confidence": 0.99,
+          "row_index": 10
+        },
+        {
+          "block_id": "p2b6",
+          "block_type": "table_row",
+          "text": "11  Replacement drive belt, HD  4  \u20ac202.95  \u20ac811.80",
+          "bbox": [
+            0.08,
+            0.25,
+            0.92,
+            0.28
+          ],
+          "confidence": 0.99,
+          "row_index": 11
+        },
+        {
+          "block_id": "p2b7",
+          "block_type": "table_row",
+          "text": "12  Thermal insulation panel, 1.2m  10  \u20ac427.35  \u20ac4,273.50",
+          "bbox": [
+            0.08,
+            0.285,
+            0.92,
+            0.315
+          ],
+          "confidence": 0.99,
+          "row_index": 12
+        },
+        {
+          "block_id": "p2b8",
+          "block_type": "page_footer",
+          "text": "Continued on next page",
+          "bbox": [
+            0.08,
+            0.95,
+            0.92,
+            0.98
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        }
+      ]
+    },
+    {
+      "page_number": 3,
+      "width": 1240,
+      "height": 1754,
+      "blocks": [
+        {
+          "block_id": "p3b0",
+          "block_type": "page_header",
+          "text": "INV-20260003 \u2014 Page 3",
+          "bbox": [
+            0.08,
+            0.01,
+            0.92,
+            0.035
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p3b1",
+          "block_type": "table_header",
+          "text": "line_number  description  quantity  unit_price  amount",
+          "bbox": [
+            0.08,
+            0.06,
+            0.92,
+            0.09
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p3b2",
+          "block_type": "table_row",
+          "text": "13  Mounting bracket, powder-coated  2  \u20ac471.71  \u20ac943.42",
+          "bbox": [
+            0.08,
+            0.11,
+            0.92,
+            0.14
+          ],
+          "confidence": 0.99,
+          "row_index": 13
+        },
+        {
+          "block_id": "p3b3",
+          "block_type": "table_row",
+          "text": "14  Stainless fastener set (250 ct)  6  \u20ac346.88  \u20ac2,081.28",
+          "bbox": [
+            0.08,
+            0.145,
+            0.92,
+            0.175
+          ],
+          "confidence": 0.99,
+          "row_index": 14
+        },
+        {
+          "block_id": "p3b4",
+          "block_type": "table_row",
+          "text": "15  Calibration service, on-site  30  \u20ac185.27  \u20ac5,558.10",
+          "bbox": [
+            0.08,
+            0.18,
+            0.92,
+            0.21
+          ],
+          "confidence": 0.99,
+          "row_index": 15
+        },
+        {
+          "block_id": "p3b5",
+          "block_type": "table_row",
+          "text": "16  Precision bearing assembly, 42mm  6  \u20ac348.51  \u20ac2,091.06",
+          "bbox": [
+            0.08,
+            0.215,
+            0.92,
+            0.245
+          ],
+          "confidence": 0.99,
+          "row_index": 16
+        }
+      ]
+    },
+    {
+      "page_number": 4,
+      "width": 1240,
+      "height": 1754,
+      "blocks": [
+        {
+          "block_id": "p4b0",
+          "block_type": "heading",
+          "text": "TERMS AND CONDITIONS OF SALE",
+          "bbox": [
+            0.08,
+            0.05,
+            0.92,
+            0.09
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p4b1",
+          "block_type": "paragraph",
+          "text": "All goods remain the property of the seller until paid for in full. Risk passes on delivery. Claims for shortage or damage must be notified in writing within seven days of receipt.",
+          "bbox": [
+            0.08,
+            0.12,
+            0.92,
+            0.22
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p4b2",
+          "block_type": "paragraph",
+          "text": "The seller shall not be liable for any indirect or consequential loss howsoever arising. Nothing in these terms limits liability for death or personal injury caused by negligence.",
+          "bbox": [
+            0.08,
+            0.24,
+            0.92,
+            0.34
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        }
+      ]
+    },
+    {
+      "page_number": 5,
+      "width": 1240,
+      "height": 1754,
+      "blocks": [
+        {
+          "block_id": "p5b0",
+          "block_type": "page_header",
+          "text": "INV-20260003 \u2014 Page 5",
+          "bbox": [
+            0.08,
+            0.01,
+            0.92,
+            0.035
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p5b1",
+          "block_type": "key_value",
+          "text": "Subtotal: \u20ac57,281.36",
+          "bbox": [
+            0.08,
+            0.3,
+            0.92,
+            0.33
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p5b2",
+          "block_type": "key_value",
+          "text": "Sales Tax (8.25%): \u20ac4,725.71",
+          "bbox": [
+            0.08,
+            0.34,
+            0.92,
+            0.37
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p5b3",
+          "block_type": "key_value",
+          "text": "Total Amount Due: \u20ac62,007.07",
+          "bbox": [
+            0.08,
+            0.38,
+            0.92,
+            0.42
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p5b4",
+          "block_type": "key_value",
+          "text": "Currency: EUR",
+          "bbox": [
+            0.08,
+            0.43,
+            0.92,
+            0.46
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p5b5",
+          "block_type": "paragraph",
+          "text": "Remit to Baltic Logistics GmbH. Payment terms: Due on receipt.",
+          "bbox": [
+            0.08,
+            0.5,
+            0.92,
+            0.54
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        }
+      ]
+    }
+  ]
+}

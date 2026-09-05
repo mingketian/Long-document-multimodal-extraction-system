@@ -1,0 +1,3 @@
+metric,label,before_harness,after_harness
+cross_page_accuracy,Cross-page field accuracy,0.789,0.887
+citation_precision,Citation precision,0.879,0.942

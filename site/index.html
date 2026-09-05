@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Throughline</title>
+<meta name="description" content="Cross-page state for long-document multimodal extraction. Bounded page groups, schema-constrained output, verified citations, and validation-driven early exit.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#128220;</text></svg>">
+<style>
+  :root {
+    color-scheme: light;
+    --surface:#fcfcfb; --raised:#ffffff; --sunk:#f4f3f0;
+    --border:#e4e3de; --border-strong:#d3d2cb;
+    --ink:#0b0b0b; --ink-soft:#52514e; --ink-muted:#84837c;
+    --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a;
+    --accent:#2a78d6; --wash:#eef5fe; --wash-warm:#fdf1ea;
+    --grid:#e8e7e2;
+    --shadow:0 1px 2px rgba(11,11,11,.05), 0 8px 24px -12px rgba(11,11,11,.10);
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --surface:#1a1a19; --raised:#232322; --sunk:#141413;
+      --border:#35342f; --border-strong:#46453f;
+      --ink:#ffffff; --ink-soft:#c3c2b7; --ink-muted:#92918a;
+      --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+      --accent:#3987e5; --wash:#17233a; --wash-warm:#33211a;
+      --grid:#2e2e2b;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface:#1a1a19; --raised:#232322; --sunk:#141413;
+    --border:#35342f; --border-strong:#46453f;
+    --ink:#ffffff; --ink-soft:#c3c2b7; --ink-muted:#92918a;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+    --accent:#3987e5; --wash:#17233a; --wash-warm:#33211a;
+    --grid:#2e2e2b;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  }
+
+  *{box-sizing:border-box}
+  .cards>*,.stages>*,.steps>*,.stat-strip>*,.foot>*{min-width:0}
+  html{scroll-behavior:smooth;scroll-padding-top:80px;overflow-x:hidden}
+  body{margin:0;background:var(--surface);color:var(--ink);font-family:var(--sans);
+       font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code,.mono{font-family:var(--mono);font-size:.88em}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+  header.nav{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--border);
+    background:color-mix(in srgb, var(--surface) 88%, transparent);
+    backdrop-filter:saturate(180%) blur(12px)}
+  .nav-inner{display:flex;align-items:center;gap:20px;height:60px}
+  .brand{font-weight:700;margin-right:auto;font-size:15px;letter-spacing:-.01em}
+  .brand span{color:var(--ink-muted);font-weight:500}
+  .nav-links{display:flex;gap:20px;align-items:center}
+  .nav a.link{color:var(--ink-soft);font-size:14px}
+  .nav a.link:hover{color:var(--ink);text-decoration:none}
+  .btn{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:8px;
+    font-size:14px;font-weight:600;border:1px solid var(--border-strong);color:var(--ink);
+    background:var(--raised);transition:border-color .15s}
+  .btn:hover{text-decoration:none;border-color:var(--ink-muted)}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn.primary:hover{filter:brightness(1.08)}
+  #themeToggle{cursor:pointer;padding:7px 10px;font-family:inherit}
+  @media(max-width:820px){.nav-links .link{display:none}}
+
+  .hero{padding:76px 0 56px;border-bottom:1px solid var(--border)}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--accent);font-weight:600}
+  h1{font-size:clamp(34px,5.2vw,56px);line-height:1.05;letter-spacing:-.028em;
+     margin:14px 0 0;font-weight:800}
+  .lede{font-size:clamp(16px,2vw,19px);color:var(--ink-soft);max-width:64ch;margin:20px 0 0}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+  .stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:52px;
+    background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  .stat{background:var(--raised);padding:20px 22px}
+  .stat .v{font-size:29px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+  .stat .k{font-size:12.5px;color:var(--ink-muted);margin-top:6px;line-height:1.4}
+  @media(max-width:860px){.stat-strip{grid-template-columns:repeat(2,1fr)}}
+
+  section{padding:76px 0;border-bottom:1px solid var(--border)}
+  .sec-eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink-muted);font-weight:600}
+  h2{font-size:clamp(26px,3.4vw,36px);letter-spacing:-.022em;margin:12px 0 0;font-weight:750}
+  .sec-lede{color:var(--ink-soft);max-width:70ch;margin:14px 0 0}
+  h3{font-size:18px;margin:0 0 8px;letter-spacing:-.012em}
+
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+  @media(max-width:940px){.cards{grid-template-columns:1fr}}
+  .card{background:var(--raised);border:1px solid var(--border);border-radius:12px;
+    padding:24px;box-shadow:var(--shadow)}
+  .card .tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--s2);font-weight:700}
+  .card p{color:var(--ink-soft);font-size:14.5px;margin:10px 0 0}
+  .card .fix{margin-top:14px;padding-top:14px;border-top:1px solid var(--border);
+    font-size:14px}
+  .card .fix b{color:var(--accent)}
+
+  .arch{background:var(--raised);border:1px solid var(--border);border-radius:12px;
+    padding:20px;box-shadow:var(--shadow);overflow-x:auto;margin-top:36px}
+  .arch img{display:block;width:100%;min-width:820px;border-radius:6px}
+
+  .stages{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+  @media(max-width:940px){.stages{grid-template-columns:1fr}}
+  .stage{background:var(--raised);border:1px solid var(--border);border-radius:10px;
+    padding:18px 20px}
+  .stage .n{font-family:var(--mono);font-size:11px;color:var(--ink-muted);
+    font-weight:700;letter-spacing:.1em}
+  .stage h4{margin:6px 0 6px;font-size:15.5px;letter-spacing:-.01em}
+  .stage p{margin:0;font-size:13.5px;color:var(--ink-soft)}
+  .stage .mod{margin-top:10px;font-family:var(--mono);font-size:11.5px;color:var(--ink-muted)}
+
+  figure{margin:36px 0 0}
+  .frame{background:var(--raised);border:1px solid var(--border);border-radius:12px;
+    padding:24px;box-shadow:var(--shadow);overflow-x:auto}
+  .fig-head{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+  .fig-title{font-size:17px;font-weight:700;letter-spacing:-.012em}
+  .fig-sub{font-size:13px;color:var(--ink-muted);margin-top:4px}
+  .toggle{margin-left:auto;display:flex;gap:2px;background:var(--sunk);
+    border:1px solid var(--border);border-radius:8px;padding:2px}
+  .toggle button{font-family:inherit;font-size:12.5px;font-weight:600;padding:5px 12px;
+    border:0;border-radius:6px;background:transparent;color:var(--ink-muted);cursor:pointer}
+  .toggle button[aria-pressed="true"]{background:var(--raised);color:var(--ink);
+    box-shadow:var(--shadow)}
+  .legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:18px}
+  .legend span{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--ink-soft)}
+  .swatch{width:11px;height:11px;border-radius:3px;flex:none}
+
+  table.data{border-collapse:collapse;width:100%;font-size:14px;margin-top:6px}
+  table.data th,table.data td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--border)}
+  table.data th:first-child,table.data td:first-child{text-align:left}
+  table.data thead th{font-size:12px;color:var(--ink-muted);font-weight:600;
+    text-transform:uppercase;letter-spacing:.06em}
+  table.data tbody tr.best{background:var(--wash)}
+  table.data tbody tr.best td{font-weight:700}
+  table.data td.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  .tip{position:fixed;pointer-events:none;opacity:0;transition:opacity .1s;
+    background:var(--raised);border:1px solid var(--border-strong);border-radius:8px;
+    padding:9px 12px;font-size:13px;box-shadow:var(--shadow);z-index:100;max-width:280px}
+  .tip .t-name{font-weight:700;display:flex;align-items:center;gap:7px}
+  .tip .t-val{font-family:var(--mono);font-size:15px;margin-top:3px}
+  .tip .t-meta{color:var(--ink-muted);font-size:12px;margin-top:3px}
+
+  .note{margin-top:22px;padding:18px 20px;border-left:3px solid var(--accent);
+    background:var(--wash);border-radius:0 10px 10px 0;font-size:14.5px}
+  .note.warm{border-left-color:var(--s2);background:var(--wash-warm)}
+  .note b{font-weight:700}
+
+  pre{background:var(--sunk);border:1px solid var(--border);border-radius:10px;
+    padding:16px 18px;overflow-x:auto;font-family:var(--mono);font-size:13px;
+    line-height:1.65;margin:0;max-width:100%}
+  pre .c{color:var(--ink-muted)}
+  pre .g{color:var(--s3)}
+  .steps{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px}
+  @media(max-width:860px){.steps{grid-template-columns:1fr}}
+  .step h3{display:flex;align-items:center;gap:10px}
+  .step h3 .num{width:22px;height:22px;border-radius:50%;background:var(--accent);
+    color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;flex:none}
+  .step p{color:var(--ink-soft);font-size:14.5px;margin:0 0 12px}
+
+  ul.plain{padding-left:20px;color:var(--ink-soft);font-size:14.5px}
+  ul.plain li{margin:9px 0}
+  ul.plain b{color:var(--ink)}
+
+  footer{padding:48px 0 64px}
+  .foot{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start}
+  .foot .col{flex:1 1 220px}
+  .foot h5{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;
+    color:var(--ink-muted);font-weight:600}
+  .foot a{display:block;font-size:14px;color:var(--ink-soft);margin:6px 0}
+  .foot a:hover{color:var(--accent)}
+  .foot-bottom{margin-top:36px;padding-top:22px;border-top:1px solid var(--border);
+    font-size:13px;color:var(--ink-muted)}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div class="brand">Throughline <span>· long-document extraction</span></div>
+    <nav class="nav-links">
+      <a class="link" href="#problem">Problem</a>
+      <a class="link" href="#architecture">Architecture</a>
+      <a class="link" href="#results">Results</a>
+      <a class="link" href="#run">Run it</a>
+      <button id="themeToggle" class="btn" type="button" aria-label="Toggle colour theme">◐</button>
+      <a class="btn primary" href="https://github.com/mingketian/Long-document-multimodal-extraction-system">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Evidence-grounded document AI</div>
+    <h1>Cross-page state for<br>long-document extraction.</h1>
+    <p class="lede">
+      A vision-language model can read a page. It cannot read forty at once. Throughline
+      reads a few pages at a time and carries forward a compact record of what is known,
+      what is missing, and which tables are still running — so a bounded window behaves
+      like a whole-document read.
+    </p>
+    <div class="hero-actions">
+      <a class="btn primary" href="https://github.com/mingketian/Long-document-multimodal-extraction-system">View the repository</a>
+      <a class="btn" href="#results">See the results</a>
+      <a class="btn" href="#run">Run it locally</a>
+    </div>
+
+    <div class="stat-strip">
+      <div class="stat"><div class="v">0.923</div>
+        <div class="k">Weighted F1 after LoRA on 2.4K page-group sets, from 0.867</div></div>
+      <div class="stat"><div class="v">0.887</div>
+        <div class="k">Cross-page field accuracy, from 0.789 — the metric page-at-a-time prompting loses</div></div>
+      <div class="stat"><div class="v">−20.2%</div>
+        <div class="k">Processing time, at a 0.3-point F1 cost against the accuracy ceiling</div></div>
+      <div class="stat"><div class="v">3.2K</div>
+        <div class="k">Pages across ~600 enterprise documents in the deployment</div></div>
+    </div>
+    <p style="font-size:12.5px;color:var(--ink-muted);margin-top:14px">
+      Reported outcomes from the Ricoh USA deployment (Sep–Dec 2025) on proprietary data.
+      Not reproducible from this repository — see <a href="#results">Results</a>.
+    </p>
+  </div>
+</div>
+
+<!-- ── problem ─────────────────────────────────────────── -->
+<section id="problem">
+  <div class="wrap">
+    <div class="sec-eyebrow">The problem</div>
+    <h2>Three things break at the page boundary.</h2>
+    <p class="sec-lede">
+      Long documents are not big short documents. Everything that makes them hard happens
+      where one page ends and the next begins.
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="tag">Failure 01</div>
+        <h3>The table continues</h3>
+        <p>
+          A line-item table runs for twenty pages, repeating its column header at the top of
+          each. Page-at-a-time reading either restarts the table or counts the header as a
+          row. Whole-document reading does not fit.
+        </p>
+        <div class="fix">→ <b>Overlapping page groups + row-key deduplication.</b> The boundary row is visible whole in one group, and the repeat collapses.</div>
+      </div>
+      <div class="card">
+        <div class="tag">Failure 02</div>
+        <h3>The answer is on the last page</h3>
+        <p>
+          A total read on page 1 is a partial subtotal. It is only correct once the last
+          continuation page has been seen — so a first-answer-wins merge is confidently wrong.
+        </p>
+        <div class="fix">→ <b>Cross-page state with continuation-aware resolution.</b> Fields marked as continuing prefer the later reading.</div>
+      </div>
+      <div class="card">
+        <div class="tag">Failure 03</div>
+        <h3>You cannot check the answer</h3>
+        <p>
+          An extracted value with no source is an assertion. In a document workflow, an
+          unsupported field is worse than a missing one, because nothing downstream knows to
+          doubt it.
+        </p>
+        <div class="fix">→ <b>Verified citations.</b> Block id → quote → value, tried in order. What resolves to nothing is marked, not trusted.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── architecture ────────────────────────────────────── -->
+<section id="architecture">
+  <div class="wrap">
+    <div class="sec-eyebrow">Architecture</div>
+    <h2>Bounded windows, explicit state.</h2>
+    <p class="sec-lede">
+      Each group is read in isolation, but the state carried between them is what makes the
+      sequence behave like one coherent read.
+    </p>
+
+    <div class="arch">
+      <img src="figures/architecture.svg" alt="Throughline architecture: ingest, partition into bounded overlapping page groups, rank pages, then per group prompt, generate, constrain, attribute and merge, under an early-exit policy.">
+    </div>
+
+    <div class="stages">
+      <div class="stage"><div class="n">INGEST</div><h4>Image and layout together</h4>
+        <p>Pages carry the rendered image and the OCR blocks. The image gives layout; the blocks give exact characters and a citable address.</p>
+        <div class="mod">ingest/ · Textract, PyMuPDF</div></div>
+      <div class="stage"><div class="n">PARTITION</div><h4>Bounded, overlapping groups</h4>
+        <p>≤4 pages and ≤18k characters, with one page of overlap. Boundaries prefer natural breaks and avoid cutting mid-table.</p>
+        <div class="mod">grouping/page_groups.py</div></div>
+      <div class="stage"><div class="n">RETRIEVE</div><h4>Read the right page first</h4>
+        <p>BM25 plus positional priors rank pages against the keys still missing. Skipped for table schemas, where page order is a correctness requirement.</p>
+        <div class="mod">retrieval/relevant_pages.py</div></div>
+      <div class="stage"><div class="n">CONSTRAIN</div><h4>Schema at decode time</h4>
+        <p>A JSON-Schema grammar where the stack supports it; defensive parse and repair where it does not — including salvaging a truncated generation.</p>
+        <div class="mod">decoding/constrained.py</div></div>
+      <div class="stage"><div class="n">ATTRIBUTE</div><h4>Verify every citation</h4>
+        <p>Block id, then quote, then value. Unverified citations lose their claim and their confidence, and block early exit on required fields.</p>
+        <div class="mod">attribution/evidence.py</div></div>
+      <div class="stage"><div class="n">MERGE</div><h4>Cross-page state</h4>
+        <p>Fields resolve by confidence, with continuation-aware tie-breaking. Table rows accumulate and deduplicate on their row key.</p>
+        <div class="mod">state/cross_page.py</div></div>
+    </div>
+
+    <div class="note">
+      <b>The carry-over is deliberately lossy and bounded at 1,800 characters.</b> It reports
+      what is settled, which tables are open, and what is still missing — not the full record.
+      A carry-over that grows with the document would defeat the exact bound that page grouping
+      exists to enforce.
+    </div>
+  </div>
+</section>
+
+<!-- ── results ─────────────────────────────────────────── -->
+<section id="results">
+  <div class="wrap">
+    <div class="sec-eyebrow">Results</div>
+    <h2>Two kinds of number, kept apart.</h2>
+    <p class="sec-lede">
+      Reported outcomes come from the production deployment on proprietary documents. Measured
+      numbers are produced by this repository, right now, on a synthetic corpus with a
+      rule-based baseline. Conflating them would be dishonest, so they live in separate files,
+      separate figures, and separate sections.
+    </p>
+
+    <figure>
+      <div class="frame">
+        <div class="fig-head">
+          <div>
+            <div class="fig-title">Reported — Ricoh USA deployment</div>
+            <div class="fig-sub">~600 proprietary enterprise documents · 3.2K pages · Sep–Dec 2025 · LoRA-fine-tuned Qwen2.5-VL-7B on SageMaker</div>
+          </div>
+          <div class="toggle" role="group" aria-label="View as chart or table">
+            <button type="button" data-view="chart" data-target="rep" aria-pressed="true">Chart</button>
+            <button type="button" data-view="table" data-target="rep" aria-pressed="false">Table</button>
+          </div>
+        </div>
+        <div id="rep-chart"></div>
+        <div id="rep-table" hidden></div>
+        <div class="legend" id="rep-legend"></div>
+      </div>
+    </figure>
+
+    <div class="note warm">
+      <b>Provenance.</b> These were measured internally on data that is not in this repository
+      and will not be. The code here is a clean-room implementation of the same architecture;
+      it cannot reproduce these numbers, and nothing in it produced them.
+    </div>
+
+    <figure>
+      <div class="frame">
+        <div class="fig-head">
+          <div>
+            <div class="fig-title">Measured here — accuracy vs pages read</div>
+            <div class="fig-sub">8 synthetic 18–26 page agreements · rule-based baseline backend · <span class="mono">throughline sweep</span></div>
+          </div>
+          <div class="toggle" role="group" aria-label="View as chart or table">
+            <button type="button" data-view="chart" data-target="meas" aria-pressed="true">Chart</button>
+            <button type="button" data-view="table" data-target="meas" aria-pressed="false">Table</button>
+          </div>
+        </div>
+        <div id="meas-chart"></div>
+        <div id="meas-table" hidden></div>
+        <div class="legend" id="meas-legend"></div>
+      </div>
+    </figure>
+
+    <div class="note">
+      <b>Read this as a curve, not a leaderboard.</b> The balanced profile reads 32% of the
+      pages for 77% of the accuracy ceiling. How good that trade is depends entirely on backend
+      strength — with a keyword matcher the skipped pages were carrying real information, so the
+      gap is wide. With the fine-tuned model above, the same mechanism cost 0.3 F1 for 20.2%
+      less time. Both are the same trade at different backend strengths.
+    </div>
+
+    <figure>
+      <div class="frame">
+        <div class="fig-head">
+          <div>
+            <div class="fig-title">Per-key F1 on the synthetic invoice corpus</div>
+            <div class="fig-sub">12 documents · 69 pages · every page read · rule-based baseline</div>
+          </div>
+        </div>
+        <div id="key-chart"></div>
+      </div>
+    </figure>
+
+    <div class="note">
+      <b>Two results worth reading carefully.</b>
+      <span class="mono">line_items</span> scores 1.000 across all 12 documents — the table spans
+      several page groups and the overlap re-shows boundary rows, so a correct row count means
+      cross-page accumulation <em>and</em> deduplication both worked. And on this corpus
+      <b>early exit never fires</b>: <span class="mono">line_items</span> is required and stays
+      open to the last page, so stopping would truncate it and the policy refuses. A speedup here
+      would mean the guard was broken.
+    </div>
+  </div>
+</section>
+
+<!-- ── run it ──────────────────────────────────────────── -->
+<section id="run">
+  <div class="wrap">
+    <div class="sec-eyebrow">Run it</div>
+    <h2>No GPU, no cloud, no weights.</h2>
+    <p class="sec-lede">
+      The repository ships 20 synthetic documents and a deterministic rule-based backend, so the
+      whole pipeline — grouping, state, continuation, attribution, early exit — runs end to end
+      after a plain install.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <h3><span class="num">1</span> Install</h3>
+        <p>Python 3.10 or later. Core has no required dependencies.</p>
+<pre>git clone https://github.com/mingketian/\
+Long-document-multimodal-extraction-system.git Throughline
+cd Throughline
+pip install -e .</pre>
+      </div>
+      <div class="step">
+        <h3><span class="num">2</span> See it work</h3>
+        <p>How a document partitions, then an extraction with verified citations.</p>
+<pre>throughline inspect examples/documents/agreement_0001.json \
+  --schema service_agreement
+
+throughline extract examples/documents/invoice_0001.json \
+  --schema invoice --show-evidence</pre>
+      </div>
+      <div class="step">
+        <h3><span class="num">3</span> Measure the trade-off</h3>
+        <p>Every profile over one corpus, in one table.</p>
+<pre>throughline sweep examples/corpus_agreements \
+  --schema service_agreement
+
+<span class="c"># or regenerate every table and figure</span>
+make results</pre>
+      </div>
+      <div class="step">
+        <h3><span class="num">4</span> Point it at a real model</h3>
+        <p>Same pipeline, different backend. Local weights or a SageMaker endpoint.</p>
+<pre>throughline extract contract.pdf \
+  --schema service_agreement \
+  --backend sagemaker \
+  --endpoint throughline-qwen25vl</pre>
+      </div>
+    </div>
+
+    <h3 style="margin-top:48px">What this repository is, and is not</h3>
+    <ul class="plain">
+      <li><b>It is a clean-room implementation</b> of the architecture built during an AI/ML engineering internship at Ricoh USA, written to be runnable and testable in the open.</li>
+      <li><b>It contains no employer source, no customer documents, and no production configuration.</b> Every document in <span class="mono">examples/</span> is synthetic and generated by a script in the repo.</li>
+      <li><b>The default backend is not a model.</b> It is keyword and regex matching over layout text — an honest floor, and the reason CI can exercise the entire path deterministically.</li>
+      <li><b>The reported deployment numbers cannot be checked here.</b> They were measured on data that is not in this repository.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="col">
+        <h5>Project</h5>
+        <a href="https://github.com/mingketian/Long-document-multimodal-extraction-system">Repository</a>
+        <a href="https://github.com/mingketian/Long-document-multimodal-extraction-system/blob/main/docs/ARCHITECTURE.md">Architecture</a>
+        <a href="https://github.com/mingketian/Long-document-multimodal-extraction-system/blob/main/docs/EVALUATION.md">Evaluation</a>
+        <a href="https://github.com/mingketian/Long-document-multimodal-extraction-system/blob/main/docs/DEPLOYMENT.md">Deployment &amp; MLOps</a>
+      </div>
+      <div class="col">
+        <h5>Built on</h5>
+        <a href="https://huggingface.co/Qwen/Qwen2.5-VL-7B-Instruct">Qwen2.5-VL-7B</a>
+        <a href="https://aws.amazon.com/solutions/guidance/intelligent-document-processing-on-aws/">AWS GenAI IDP accelerator</a>
+        <a href="https://aws.amazon.com/textract/">Amazon Textract</a>
+        <a href="https://mlflow.org/">MLflow</a>
+      </div>
+      <div class="col">
+        <h5>Related</h5>
+        <a href="https://github.com/baidu/Unlimited-OCR">Unlimited-OCR — long-horizon parsing</a>
+        <a href="https://github.com/deepseek-ai/DeepSeek-OCR">DeepSeek-OCR</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      Mingke Tian · AI/ML Engineering Intern, Ricoh USA (Sep–Dec 2025).
+      <br>Clean-room implementation. No employer source, customer data or production
+      configuration. All example documents are synthetic.
+    </div>
+  </div>
+</footer>
+
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  "use strict";
+
+  const root = document.documentElement;
+  const toggle = document.getElementById("themeToggle");
+  const stored = (() => { try { return localStorage.getItem("tl-theme"); } catch { return null; } })();
+  if (stored === "dark" || stored === "light") root.setAttribute("data-theme", stored);
+  toggle.addEventListener("click", () => {
+    const dark = root.getAttribute("data-theme") === "dark"
+      || (!root.hasAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
+    const next = dark ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("tl-theme", next); } catch {}
+    drawAll();
+  });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", drawAll);
+
+  const cssVar = n => getComputedStyle(root).getPropertyValue(n).trim();
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs = {}, text) => {
+    const node = document.createElementNS(NS, tag);
+    for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
+    if (text != null) node.textContent = text;
+    return node;
+  };
+
+  /* ── tooltip ─────────────────────────────────────── */
+  const tip = document.getElementById("tip");
+  function showTip(evt, { name, value, meta, color }) {
+    tip.innerHTML = "";
+    const n = document.createElement("div"); n.className = "t-name";
+    const sw = document.createElement("span"); sw.className = "swatch"; sw.style.background = color;
+    n.append(sw, document.createTextNode(name));
+    const v = document.createElement("div"); v.className = "t-val"; v.textContent = value;
+    tip.append(n, v);
+    if (meta) { const m = document.createElement("div"); m.className = "t-meta"; m.textContent = meta; tip.append(m); }
+    tip.style.opacity = "1"; moveTip(evt);
+  }
+  function moveTip(evt) {
+    const pad = 14, w = tip.offsetWidth, h = tip.offsetHeight;
+    let x = evt.clientX + pad, y = evt.clientY - h - pad;
+    if (x + w > innerWidth - 8) x = evt.clientX - w - pad;
+    if (y < 8) y = evt.clientY + pad;
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }
+  const hideTip = () => { tip.style.opacity = "0"; };
+  function bindHover(node, payload) {
+    node.addEventListener("pointerenter", e => showTip(e, payload));
+    node.addEventListener("pointermove", moveTip);
+    node.addEventListener("pointerleave", hideTip);
+    node.style.cursor = "default";
+  }
+
+  /* ── data ────────────────────────────────────────── */
+  const REPORTED = {
+    groups: ["Weighted F1", "Schema-valid rate", "Cross-page accuracy", "Citation precision"],
+    series: [
+      { name: "Before", note: "base model, single-pass prompting", slot: 0,
+        values: [0.867, 0.934, 0.789, 0.879] },
+      { name: "After", note: "LoRA + orchestration harness", slot: 1,
+        values: [0.923, 0.986, 0.887, 0.942] },
+    ],
+  };
+
+  const MEASURED = {
+    groups: ["accuracy", "balanced", "fast"],
+    series: [
+      { name: "Weighted F1", note: "higher is better", slot: 1, values: [0.364, 0.281, 0.091] },
+      { name: "Pages read", note: "lower is cheaper", slot: 2, values: [1.0, 0.316, 0.136] },
+    ],
+    rows: [
+      ["accuracy", "0.364", "100.0%", "1.000", "1.000"],
+      ["balanced", "0.281", "31.6%", "1.000", "1.000"],
+      ["fast", "0.091", "13.6%", "1.000", "1.000"],
+    ],
+  };
+
+  const PER_KEY = [
+    ["line_items", 1.0], ["invoice_number", 1.0], ["invoice_date", 1.0],
+    ["purchase_order", 1.0], ["bill_to", 1.0], ["currency", 1.0],
+    ["subtotal", 1.0], ["tax_total", 1.0], ["total_amount", 1.0],
+    ["payment_terms", 1.0], ["vendor_name", 0.0],
+  ];
+
+  const slotColour = slot => [cssVar("--ink-muted"), cssVar("--s1"), cssVar("--s2")][slot]
+    || cssVar("--s1");
+
+  /* ── grouped bars ────────────────────────────────── */
+  function groupedBars(mountId, legendId, { groups, series, format }) {
+    const mount = document.getElementById(mountId);
+    mount.innerHTML = "";
+    const W = Math.max(mount.clientWidth || 900, 580);
+    const H = 340, M = { t: 22, r: 12, b: 46, l: 44 };
+    const iw = W - M.l - M.r, ih = H - M.t - M.b;
+    const y = v => M.t + ih - v * ih;
+
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", height: H,
+                            role: "img", "aria-label": mountId });
+    svg.style.minWidth = "580px";
+
+    for (let g = 0; g <= 5; g++) {
+      const v = g / 5;
+      svg.append(el("line", { x1: M.l, x2: W - M.r, y1: y(v), y2: y(v),
+                              stroke: cssVar("--grid"), "stroke-width": 1 }));
+      svg.append(el("text", { x: M.l - 10, y: y(v) + 4, "text-anchor": "end",
+                              fill: cssVar("--ink-muted"), "font-size": 11 }, v.toFixed(1)));
+    }
+
+    const gw = iw / groups.length;
+    const inner = gw * 0.66;
+    const bw = inner / series.length - 4;
+    const r = 4;
+
+    groups.forEach((label, gi) => {
+      const cx = M.l + gw * (gi + 0.5);
+      series.forEach((s, si) => {
+        const v = s.values[gi];
+        const x = cx - inner / 2 + (inner / series.length) * si + 2;
+        const top = y(v);
+        const colour = slotColour(s.slot);
+        const path = el("path", {
+          d: `M${x},${M.t + ih} L${x},${top + r} Q${x},${top} ${x + r},${top} `
+           + `L${x + bw - r},${top} Q${x + bw},${top} ${x + bw},${top + r} `
+           + `L${x + bw},${M.t + ih} Z`,
+          fill: colour,
+        });
+        bindHover(path, { name: s.name, value: format(v), meta: `${label} · ${s.note}`, color: colour });
+        svg.append(path);
+        svg.append(el("text", { x: x + bw / 2, y: top - 7, "text-anchor": "middle",
+                                fill: cssVar("--ink-soft"), "font-size": 10.5,
+                                "font-family": "ui-monospace, monospace" }, format(v)));
+      });
+      svg.append(el("text", { x: cx, y: H - 18, "text-anchor": "middle",
+                              fill: cssVar("--ink"), "font-size": 12 }, label));
+    });
+
+    mount.append(svg);
+
+    const legend = document.getElementById(legendId);
+    legend.innerHTML = "";
+    series.forEach(s => {
+      const span = document.createElement("span");
+      const sw = document.createElement("span");
+      sw.className = "swatch"; sw.style.background = slotColour(s.slot);
+      span.append(sw, document.createTextNode(`${s.name} — ${s.note}`));
+      legend.append(span);
+    });
+  }
+
+  /* ── horizontal per-key bars ─────────────────────── */
+  function perKeyBars(mountId) {
+    const mount = document.getElementById(mountId);
+    mount.innerHTML = "";
+    const W = Math.max(mount.clientWidth || 900, 520);
+    const rowH = 30, labelW = 130;
+    const H = PER_KEY.length * rowH + 26;
+    const barW = W - labelW - 70;
+
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%",
+                            role: "img", "aria-label": "per-key F1" });
+    svg.style.minWidth = "520px";
+
+    [0, 0.25, 0.5, 0.75, 1].forEach(v => {
+      const x = labelW + v * barW;
+      svg.append(el("line", { x1: x, x2: x, y1: 4, y2: H - 22,
+                              stroke: cssVar("--grid"), "stroke-width": 1 }));
+      svg.append(el("text", { x, y: H - 6, "text-anchor": "middle",
+                              fill: cssVar("--ink-muted"), "font-size": 10 }, v.toFixed(2)));
+    });
+
+    PER_KEY.forEach(([key, value], index) => {
+      const yTop = index * rowH + 8, bh = 16;
+      svg.append(el("text", { x: labelW - 10, y: yTop + bh / 2 + 4, "text-anchor": "end",
+                              fill: cssVar("--ink-soft"), "font-size": 12,
+                              "font-family": "ui-monospace, monospace" }, key));
+      const colour = value >= 0.99 ? cssVar("--s1") : cssVar("--s2");
+      const width = Math.max(value * barW, 2);
+      const rect = el("rect", { x: labelW, y: yTop, width, height: bh, rx: 3, fill: colour });
+      bindHover(rect, {
+        name: key, value: value.toFixed(3),
+        meta: value >= 0.99 ? "recovered on all 12 documents"
+                            : "a keyword matcher reads a legal clause as a party name",
+        color: colour,
+      });
+      svg.append(rect);
+      svg.append(el("text", { x: labelW + width + 8, y: yTop + bh / 2 + 4,
+                              fill: cssVar("--ink"), "font-size": 11.5,
+                              "font-family": "ui-monospace, monospace" }, value.toFixed(3)));
+    });
+
+    mount.append(svg);
+  }
+
+  /* ── tables ──────────────────────────────────────── */
+  function buildTable(mountId, head, rows, bestRow) {
+    const mount = document.getElementById(mountId);
+    mount.innerHTML = "";
+    const table = document.createElement("table");
+    table.className = "data";
+    const thead = document.createElement("thead");
+    const tr = document.createElement("tr");
+    head.forEach(h => { const th = document.createElement("th"); th.textContent = h; tr.append(th); });
+    thead.append(tr); table.append(thead);
+    const tbody = document.createElement("tbody");
+    rows.forEach((row, index) => {
+      const line = document.createElement("tr");
+      if (index === bestRow) line.className = "best";
+      row.forEach((cell, ci) => {
+        const td = document.createElement("td");
+        td.textContent = cell;
+        if (ci > 0) td.className = "num";
+        line.append(td);
+      });
+      tbody.append(line);
+    });
+    table.append(tbody);
+    mount.append(table);
+  }
+
+  document.querySelectorAll(".toggle button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const { view, target } = btn.dataset;
+      document.querySelectorAll(`.toggle button[data-target="${target}"]`)
+        .forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
+      document.getElementById(`${target}-chart`).hidden = view !== "chart";
+      document.getElementById(`${target}-table`).hidden = view !== "table";
+      if (view === "chart") drawAll();
+    });
+  });
+
+  function drawAll() {
+    if (!document.getElementById("rep-chart").hidden) {
+      groupedBars("rep-chart", "rep-legend",
+        { ...REPORTED, format: v => v.toFixed(3) });
+    }
+    if (!document.getElementById("meas-chart").hidden) {
+      groupedBars("meas-chart", "meas-legend",
+        { ...MEASURED, format: v => v.toFixed(3) });
+    }
+    perKeyBars("key-chart");
+  }
+
+  buildTable(
+    "rep-table",
+    ["Metric", "Before", "After", "Δ (pts)"],
+    REPORTED.groups.map((g, i) => [
+      g,
+      REPORTED.series[0].values[i].toFixed(3),
+      REPORTED.series[1].values[i].toFixed(3),
+      "+" + ((REPORTED.series[1].values[i] - REPORTED.series[0].values[i]) * 100).toFixed(1),
+    ]),
+    -1
+  );
+  buildTable(
+    "meas-table",
+    ["Profile", "Weighted F1", "Pages read", "Schema-valid", "Citations verified"],
+    MEASURED.rows,
+    1
+  );
+
+  drawAll();
+  let timer;
+  addEventListener("resize", () => { clearTimeout(timer); timer = setTimeout(drawAll, 140); });
+})();
+</script>
+</body>
+</html>

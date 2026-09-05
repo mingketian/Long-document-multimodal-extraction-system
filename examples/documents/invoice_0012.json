@@ -1,0 +1,539 @@
+{
+  "document_id": "invoice_0012",
+  "source_path": null,
+  "metadata": {
+    "synthetic": true,
+    "generator": "tools/make_examples.py"
+  },
+  "pages": [
+    {
+      "page_number": 1,
+      "width": 1240,
+      "height": 1754,
+      "blocks": [
+        {
+          "block_id": "p1b0",
+          "block_type": "title",
+          "text": "Cascade Manufacturing Co",
+          "bbox": [
+            0.08,
+            0.04,
+            0.92,
+            0.09
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p1b1",
+          "block_type": "page_header",
+          "text": "Page 1",
+          "bbox": [
+            0.08,
+            0.01,
+            0.92,
+            0.035
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p1b2",
+          "block_type": "key_value",
+          "text": "Invoice No: INV-20260012",
+          "bbox": [
+            0.08,
+            0.12,
+            0.92,
+            0.15
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p1b3",
+          "block_type": "key_value",
+          "text": "Invoice Date: 2026-01-24",
+          "bbox": [
+            0.08,
+            0.155,
+            0.92,
+            0.185
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p1b4",
+          "block_type": "key_value",
+          "text": "Purchase Order: PO-53854",
+          "bbox": [
+            0.08,
+            0.19,
+            0.92,
+            0.22
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p1b5",
+          "block_type": "key_value",
+          "text": "Bill To: Redpoint Analytics LLC",
+          "bbox": [
+            0.08,
+            0.225,
+            0.92,
+            0.255
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p1b6",
+          "block_type": "key_value",
+          "text": "Payment Terms: Net 45",
+          "bbox": [
+            0.08,
+            0.26,
+            0.92,
+            0.29
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p1b7",
+          "block_type": "table_header",
+          "text": "line_number  description  quantity  unit_price  amount",
+          "bbox": [
+            0.08,
+            0.34,
+            0.92,
+            0.37
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p1b8",
+          "block_type": "table_row",
+          "text": "1  Thermal insulation panel, 1.2m  19  $253.41  $4,814.79",
+          "bbox": [
+            0.08,
+            0.39,
+            0.92,
+            0.42
+          ],
+          "confidence": 0.99,
+          "row_index": 1
+        },
+        {
+          "block_id": "p1b9",
+          "block_type": "table_row",
+          "text": "2  Mounting bracket, powder-coated  8  $81.56  $652.48",
+          "bbox": [
+            0.08,
+            0.425,
+            0.92,
+            0.455
+          ],
+          "confidence": 0.99,
+          "row_index": 2
+        },
+        {
+          "block_id": "p1b10",
+          "block_type": "table_row",
+          "text": "3  Diagnostic interface adapter  14  $122.77  $1,718.78",
+          "bbox": [
+            0.08,
+            0.46,
+            0.92,
+            0.49
+          ],
+          "confidence": 0.99,
+          "row_index": 3
+        },
+        {
+          "block_id": "p1b11",
+          "block_type": "table_row",
+          "text": "4  Pressure sensor, 0-16 bar  21  $216.94  $4,555.74",
+          "bbox": [
+            0.08,
+            0.495,
+            0.92,
+            0.525
+          ],
+          "confidence": 0.99,
+          "row_index": 4
+        },
+        {
+          "block_id": "p1b12",
+          "block_type": "table_row",
+          "text": "5  Pressure sensor, 0-16 bar  10  $142.81  $1,428.10",
+          "bbox": [
+            0.08,
+            0.53,
+            0.92,
+            0.56
+          ],
+          "confidence": 0.99,
+          "row_index": 5
+        },
+        {
+          "block_id": "p1b13",
+          "block_type": "table_row",
+          "text": "6  Cable harness, 3m shielded  3  $119.88  $359.64",
+          "bbox": [
+            0.08,
+            0.565,
+            0.92,
+            0.595
+          ],
+          "confidence": 0.99,
+          "row_index": 6
+        },
+        {
+          "block_id": "p1b14",
+          "block_type": "page_footer",
+          "text": "Continued on next page",
+          "bbox": [
+            0.08,
+            0.95,
+            0.92,
+            0.98
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        }
+      ]
+    },
+    {
+      "page_number": 2,
+      "width": 1240,
+      "height": 1754,
+      "blocks": [
+        {
+          "block_id": "p2b0",
+          "block_type": "page_header",
+          "text": "INV-20260012 \u2014 Page 2",
+          "bbox": [
+            0.08,
+            0.01,
+            0.92,
+            0.035
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p2b1",
+          "block_type": "table_header",
+          "text": "line_number  description  quantity  unit_price  amount",
+          "bbox": [
+            0.08,
+            0.06,
+            0.92,
+            0.09
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p2b2",
+          "block_type": "table_row",
+          "text": "7  Calibration service, on-site  22  $294.78  $6,485.16",
+          "bbox": [
+            0.08,
+            0.11,
+            0.92,
+            0.14
+          ],
+          "confidence": 0.99,
+          "row_index": 7
+        },
+        {
+          "block_id": "p2b3",
+          "block_type": "table_row",
+          "text": "8  Diagnostic interface adapter  33  $111.13  $3,667.29",
+          "bbox": [
+            0.08,
+            0.145,
+            0.92,
+            0.175
+          ],
+          "confidence": 0.99,
+          "row_index": 8
+        },
+        {
+          "block_id": "p2b4",
+          "block_type": "table_row",
+          "text": "9  Diagnostic interface adapter  30  $189.15  $5,674.50",
+          "bbox": [
+            0.08,
+            0.18,
+            0.92,
+            0.21
+          ],
+          "confidence": 0.99,
+          "row_index": 9
+        },
+        {
+          "block_id": "p2b5",
+          "block_type": "table_row",
+          "text": "10  Control module firmware licence  31  $116.99  $3,626.69",
+          "bbox": [
+            0.08,
+            0.215,
+            0.92,
+            0.245
+          ],
+          "confidence": 0.99,
+          "row_index": 10
+        },
+        {
+          "block_id": "p2b6",
+          "block_type": "table_row",
+          "text": "11  Hydraulic seal kit, type B  2  $110.88  $221.76",
+          "bbox": [
+            0.08,
+            0.25,
+            0.92,
+            0.28
+          ],
+          "confidence": 0.99,
+          "row_index": 11
+        },
+        {
+          "block_id": "p2b7",
+          "block_type": "table_row",
+          "text": "12  Mounting bracket, powder-coated  36  $131.81  $4,745.16",
+          "bbox": [
+            0.08,
+            0.285,
+            0.92,
+            0.315
+          ],
+          "confidence": 0.99,
+          "row_index": 12
+        },
+        {
+          "block_id": "p2b8",
+          "block_type": "page_footer",
+          "text": "Continued on next page",
+          "bbox": [
+            0.08,
+            0.95,
+            0.92,
+            0.98
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        }
+      ]
+    },
+    {
+      "page_number": 3,
+      "width": 1240,
+      "height": 1754,
+      "blocks": [
+        {
+          "block_id": "p3b0",
+          "block_type": "page_header",
+          "text": "INV-20260012 \u2014 Page 3",
+          "bbox": [
+            0.08,
+            0.01,
+            0.92,
+            0.035
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p3b1",
+          "block_type": "table_header",
+          "text": "line_number  description  quantity  unit_price  amount",
+          "bbox": [
+            0.08,
+            0.06,
+            0.92,
+            0.09
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p3b2",
+          "block_type": "table_row",
+          "text": "13  Diagnostic interface adapter  39  $86.06  $3,356.34",
+          "bbox": [
+            0.08,
+            0.11,
+            0.92,
+            0.14
+          ],
+          "confidence": 0.99,
+          "row_index": 13
+        },
+        {
+          "block_id": "p3b3",
+          "block_type": "table_row",
+          "text": "14  Calibration service, on-site  38  $432.17  $16,422.46",
+          "bbox": [
+            0.08,
+            0.145,
+            0.92,
+            0.175
+          ],
+          "confidence": 0.99,
+          "row_index": 14
+        },
+        {
+          "block_id": "p3b4",
+          "block_type": "table_row",
+          "text": "15  Thermal insulation panel, 1.2m  31  $100.20  $3,106.20",
+          "bbox": [
+            0.08,
+            0.18,
+            0.92,
+            0.21
+          ],
+          "confidence": 0.99,
+          "row_index": 15
+        }
+      ]
+    },
+    {
+      "page_number": 4,
+      "width": 1240,
+      "height": 1754,
+      "blocks": [
+        {
+          "block_id": "p4b0",
+          "block_type": "heading",
+          "text": "TERMS AND CONDITIONS OF SALE",
+          "bbox": [
+            0.08,
+            0.05,
+            0.92,
+            0.09
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p4b1",
+          "block_type": "paragraph",
+          "text": "All goods remain the property of the seller until paid for in full. Risk passes on delivery. Claims for shortage or damage must be notified in writing within seven days of receipt.",
+          "bbox": [
+            0.08,
+            0.12,
+            0.92,
+            0.22
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p4b2",
+          "block_type": "paragraph",
+          "text": "The seller shall not be liable for any indirect or consequential loss howsoever arising. Nothing in these terms limits liability for death or personal injury caused by negligence.",
+          "bbox": [
+            0.08,
+            0.24,
+            0.92,
+            0.34
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        }
+      ]
+    },
+    {
+      "page_number": 5,
+      "width": 1240,
+      "height": 1754,
+      "blocks": [
+        {
+          "block_id": "p5b0",
+          "block_type": "page_header",
+          "text": "INV-20260012 \u2014 Page 5",
+          "bbox": [
+            0.08,
+            0.01,
+            0.92,
+            0.035
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p5b1",
+          "block_type": "key_value",
+          "text": "Subtotal: $60,835.09",
+          "bbox": [
+            0.08,
+            0.3,
+            0.92,
+            0.33
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p5b2",
+          "block_type": "key_value",
+          "text": "Sales Tax (8.25%): $5,018.89",
+          "bbox": [
+            0.08,
+            0.34,
+            0.92,
+            0.37
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p5b3",
+          "block_type": "key_value",
+          "text": "Total Amount Due: $65,853.98",
+          "bbox": [
+            0.08,
+            0.38,
+            0.92,
+            0.42
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p5b4",
+          "block_type": "key_value",
+          "text": "Currency: USD",
+          "bbox": [
+            0.08,
+            0.43,
+            0.92,
+            0.46
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        },
+        {
+          "block_id": "p5b5",
+          "block_type": "paragraph",
+          "text": "Remit to Cascade Manufacturing Co. Payment terms: Net 45.",
+          "bbox": [
+            0.08,
+            0.5,
+            0.92,
+            0.54
+          ],
+          "confidence": 0.99,
+          "row_index": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+metric,label,value
+documents,Enterprise documents processed,600
+pages,Pages processed,3200
+labelled_page_group_sets,Labelled page-group sets used for LoRA,2400

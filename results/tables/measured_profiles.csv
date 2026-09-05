@@ -1,0 +1,7 @@
+schema,profile,documents,weighted_f1,schema_valid_rate,citation_precision,cross_page_accuracy,pages_read_fraction,pages_read,pages_total,seconds_per_document
+invoice,accuracy,12,0.9658,1.0,1.0,0.6667,1.0,69,69,0.00325
+invoice,balanced,12,0.9658,1.0,1.0,0.6667,1.0,69,69,0.00282
+invoice,fast,12,0.9658,1.0,1.0,0.6667,1.0,69,69,0.00361
+service_agreement,accuracy,8,0.3636,1.0,1.0,0.0,1.0,177,177,0.01191
+service_agreement,balanced,8,0.2808,1.0,1.0,0.0,0.3164,56,177,0.00324
+service_agreement,fast,8,0.0909,1.0,1.0,0.0,0.1356,24,177,0.00139

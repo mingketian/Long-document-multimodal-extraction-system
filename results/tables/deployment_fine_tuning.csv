@@ -1,0 +1,3 @@
+metric,label,before_lora,after_lora
+weighted_f1,Weighted F1,0.867,0.923
+schema_valid_rate,Schema-valid output rate,0.934,0.986

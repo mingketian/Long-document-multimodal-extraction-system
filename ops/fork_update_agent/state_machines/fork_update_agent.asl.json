@@ -1,0 +1,115 @@
+{
+  "Comment": "High-level reference ASL for the Fork-update Agent workflow.",
+  "StartAt": "DetectNewRelease",
+  "States": {
+    "DetectNewRelease": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "NotifyFailureDetection"
+        }
+      ],
+      "Next": "AnyUpdate?"
+    },
+    "AnyUpdate?": {
+      "Type": "Choice",
+      "Choices": [
+            {
+              "Variable": "$.detect.update_required",
+              "BooleanEquals": true,
+              "Next": "PrepareMergeAndBuild"
+            }
+      ],
+      "Default": "NotifyNoChange"
+    },
+    "PrepareMergeAndBuild": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "NotifyFailureMerge"
+        }
+      ],
+      "Next": "DeployToSandbox"
+    },
+    "DeployToSandbox": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "NotifyFailureDeploy"
+        }
+      ],
+      "Next": "RunSmokeTest"
+    },
+    "RunSmokeTest": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "NotifyFailureSmoke"
+        }
+      ],
+      "Next": "NotifySuccess"
+    },
+    "NotifySuccess": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "End": true
+    },
+    "NotifyNoChange": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "End": true
+    },
+    "NotifyFailureDetection": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Next": "DetectionFailed"
+    },
+    "NotifyFailureMerge": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Next": "MergeFailed"
+    },
+    "NotifyFailureDeploy": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Next": "DeployFailed"
+    },
+    "NotifyFailureSmoke": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Next": "SmokeFailed"
+    },
+    "DetectionFailed": {
+      "Type": "Fail"
+    },
+    "MergeFailed": {
+      "Type": "Fail"
+    },
+    "DeployFailed": {
+      "Type": "Fail"
+    },
+    "SmokeFailed": {
+      "Type": "Fail"
+    }
+  }
+}

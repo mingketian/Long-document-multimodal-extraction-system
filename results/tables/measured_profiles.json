@@ -1,0 +1,80 @@
+[
+  {
+    "schema": "invoice",
+    "profile": "accuracy",
+    "documents": 12,
+    "weighted_f1": 0.9658,
+    "schema_valid_rate": 1.0,
+    "citation_precision": 1.0,
+    "cross_page_accuracy": 0.6667,
+    "pages_read_fraction": 1.0,
+    "pages_read": 69,
+    "pages_total": 69,
+    "seconds_per_document": 0.00325
+  },
+  {
+    "schema": "invoice",
+    "profile": "balanced",
+    "documents": 12,
+    "weighted_f1": 0.9658,
+    "schema_valid_rate": 1.0,
+    "citation_precision": 1.0,
+    "cross_page_accuracy": 0.6667,
+    "pages_read_fraction": 1.0,
+    "pages_read": 69,
+    "pages_total": 69,
+    "seconds_per_document": 0.00282
+  },
+  {
+    "schema": "invoice",
+    "profile": "fast",
+    "documents": 12,
+    "weighted_f1": 0.9658,
+    "schema_valid_rate": 1.0,
+    "citation_precision": 1.0,
+    "cross_page_accuracy": 0.6667,
+    "pages_read_fraction": 1.0,
+    "pages_read": 69,
+    "pages_total": 69,
+    "seconds_per_document": 0.00361
+  },
+  {
+    "schema": "service_agreement",
+    "profile": "accuracy",
+    "documents": 8,
+    "weighted_f1": 0.3636,
+    "schema_valid_rate": 1.0,
+    "citation_precision": 1.0,
+    "cross_page_accuracy": 0.0,
+    "pages_read_fraction": 1.0,
+    "pages_read": 177,
+    "pages_total": 177,
+    "seconds_per_document": 0.01191
+  },
+  {
+    "schema": "service_agreement",
+    "profile": "balanced",
+    "documents": 8,
+    "weighted_f1": 0.2808,
+    "schema_valid_rate": 1.0,
+    "citation_precision": 1.0,
+    "cross_page_accuracy": 0.0,
+    "pages_read_fraction": 0.3164,
+    "pages_read": 56,
+    "pages_total": 177,
+    "seconds_per_document": 0.00324
+  },
+  {
+    "schema": "service_agreement",
+    "profile": "fast",
+    "documents": 8,
+    "weighted_f1": 0.0909,
+    "schema_valid_rate": 1.0,
+    "citation_precision": 1.0,
+    "cross_page_accuracy": 0.0,
+    "pages_read_fraction": 0.1356,
+    "pages_read": 24,
+    "pages_total": 177,
+    "seconds_per_document": 0.00139
+  }
+]

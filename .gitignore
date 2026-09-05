@@ -1,0 +1,39 @@
+# ── secrets ───────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── python ────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# ── generated at runtime ──────────────────────────────────────
+.cache/
+outputs/
+mlruns/
+data/
+!examples/
+
+# ── model weights and adapters ────────────────────────────────
+*.safetensors
+*.bin
+*.pt
+*.pth
+adapter_model*/
+
+# ── aws cdk ───────────────────────────────────────────────────
+cdk.out/
+ops/**/cdk.context.json
+
+# ── os / editor ───────────────────────────────────────────────
+.DS_Store
+.idea/
+.vscode/

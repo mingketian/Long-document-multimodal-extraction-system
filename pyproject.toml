@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "throughline"
+version = "0.3.0"
+description = "Cross-page state for long-document multimodal extraction"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Proprietary" }
+authors = [{ name = "Mingke Tian" }]
+keywords = [
+    "document-ai", "information-extraction", "vision-language-model",
+    "long-document", "ocr", "sagemaker", "lora",
+]
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Private :: Do Not Upload",
+]
+dependencies = []
+
+[project.optional-dependencies]
+ingest = ["pymupdf>=1.24", "pillow>=10.0"]
+aws = ["boto3>=1.34", "sagemaker>=2.220"]
+vlm = ["torch>=2.3", "transformers>=4.49", "pillow>=10.0", "accelerate>=0.30"]
+train = ["peft>=0.11", "datasets>=2.19", "accelerate>=0.30", "transformers>=4.49"]
+track = ["mlflow>=2.13"]
+viz = ["matplotlib>=3.8"]
+dev = ["pytest>=8.0", "ruff>=0.5", "mypy>=1.10"]
+all = ["throughline[ingest,aws,vlm,train,track,viz,dev]"]
+
+[project.scripts]
+throughline = "throughline.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tools", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM"]
+ignore = ["E501", "B008"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+warn_unused_ignores = false

@@ -1,0 +1,22 @@
+# Development and Testing Dependencies
+# Install with: pip install -r dev-requirements.txt
+
+# AWS SDK
+boto3>=1.34.0
+
+# Testing Framework
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-mock>=3.12.0
+
+# Code Quality and Linting
+black>=23.12.0
+flake8>=7.0.0
+mypy>=1.7.0
+pylint>=3.0.0
+
+# Type Stubs for AWS
+boto3-stubs[lambda,stepfunctions,sns,ssm,cloudformation,events]>=1.34.0
+
+# Development Tools
+ipython>=8.18.0
