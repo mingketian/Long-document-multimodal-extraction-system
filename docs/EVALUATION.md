@@ -174,7 +174,7 @@ sweep that showed a speedup here would mean the guard was broken.
 ```bash
 make results        # tables + figures
 make sweep          # profile comparison, printed
-make test           # 148 tests
+make test           # 189 tests
 ```
 
 Or directly:

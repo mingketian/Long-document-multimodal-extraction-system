@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 780" width="1320" height="780" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-labelledby="mlTitle mlDesc">
+  <title id="mlTitle">Throughline MLOps lifecycle</title>
+  <desc id="mlDesc">A labelled corpus is replayed through the real page grouping to build page-group training sets, a LoRA adapter is trained on SageMaker, the candidate is scored on a held-out corpus with early exit disabled, and a promotion gate decides. The gate checks corpus size, absolute floors, corpus fingerprint equality, primary-metric improvement, guarded-metric regression, and per-key regression. Passing candidates are registered as champion and deployed to the endpoint; held candidates stop the pipeline with the gate report. The outgoing champion is archived as the rollback target. Every step logs params, headline metrics and per-key F1 to MLflow.</desc>
+
+  <style>
+    .surface  { fill: #fcfcfb; }
+    .card     { fill: #ffffff; stroke: #e2e1dc; stroke-width: 1.5; }
+    .card-key { fill: #eef5fe; stroke: #2a78d6; stroke-width: 1.75; }
+    .card-gate{ fill: #fdf1ea; stroke: #eb6834; stroke-width: 2; }
+    .card-mut { fill: #f6f5f2; stroke: #e2e1dc; stroke-width: 1.5; }
+    .card-ok  { fill: #eef8f3; stroke: #1baf7a; stroke-width: 1.75; }
+    .lane     { fill: #f9f9f7; stroke: #eceae4; stroke-width: 1.5; }
+    .t-title  { fill: #0b0b0b; font-size: 21px; font-weight: 700; }
+    .t-sub    { fill: #84837c; font-size: 13px; }
+    .t-lane   { fill: #a3a29a; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; }
+    .t-node   { fill: #0b0b0b; font-size: 13.5px; font-weight: 600; }
+    .t-meta   { fill: #6c6b64; font-size: 11px; }
+    .t-mono   { fill: #52514e; font-size: 10.5px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .t-step   { fill: #a3a29a; font-size: 10px; font-weight: 700; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .t-edge   { fill: #84837c; font-size: 10.5px; }
+    .t-pass   { fill: #1baf7a; font-size: 11px; font-weight: 700; }
+    .t-hold   { fill: #eb6834; font-size: 11px; font-weight: 700; }
+    .flow     { stroke: #2a78d6; stroke-width: 2; fill: none; }
+    .flow-ok  { stroke: #1baf7a; stroke-width: 2; fill: none; }
+    .flow-no  { stroke: #eb6834; stroke-width: 2; fill: none; }
+    .flow-d   { stroke: #b6b5ad; stroke-width: 1.5; fill: none; stroke-dasharray: 5 4; }
+  </style>
+
+  <defs>
+    <marker id="mb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#2a78d6"/></marker>
+    <marker id="mg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#1baf7a"/></marker>
+    <marker id="mo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#eb6834"/></marker>
+    <marker id="mn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#b6b5ad"/></marker>
+  </defs>
+
+  <rect class="surface" x="0" y="0" width="1320" height="780"/>
+
+  <text class="t-title" x="32" y="40">The lifecycle around the model</text>
+  <text class="t-sub"   x="32" y="63">A trained adapter is an artefact. A system is what decides whether it should serve, records why, deploys it, and can undo it.</text>
+
+  <!-- ── build / train lane ───────────────────────────────────── -->
+  <rect class="lane" x="32" y="92" width="1256" height="150" rx="12"/>
+  <text class="t-lane" x="52" y="114">BUILD AND TRAIN · SAGEMAKER PIPELINES</text>
+
+  <rect class="card" x="56" y="126" width="230" height="98" rx="9"/>
+  <text class="t-step" x="72" y="148">01 · BuildDataset</text>
+  <text class="t-node" x="72" y="168">Page-group sets</text>
+  <text class="t-meta" x="72" y="187">Replays the real grouping over</text>
+  <text class="t-meta" x="72" y="203">a labelled corpus. Carry-over is</text>
+  <text class="t-meta" x="72" y="216">simulated, never idealised.</text>
+
+  <path class="flow" d="M 286 175 H 322" marker-end="url(#mb)"/>
+
+  <rect class="card-key" x="326" y="126" width="230" height="98" rx="9"/>
+  <text class="t-step" x="342" y="148">02 · TrainLoRA</text>
+  <text class="t-node" x="342" y="168">Qwen2.5-VL-7B + LoRA</text>
+  <text class="t-mono" x="342" y="187">r=16 · vision tower frozen</text>
+  <text class="t-meta" x="342" y="204">Loss on the completion only.</text>
+  <text class="t-meta" x="342" y="218">Spot + checkpointing.</text>
+
+  <path class="flow" d="M 556 175 H 592" marker-end="url(#mb)"/>
+
+  <rect class="card" x="596" y="126" width="230" height="98" rx="9"/>
+  <text class="t-step" x="612" y="148">03 · Evaluate</text>
+  <text class="t-node" x="612" y="168">Held-out corpus</text>
+  <text class="t-meta" x="612" y="187">Early exit disabled, so the</text>
+  <text class="t-meta" x="612" y="203">number is the accuracy ceiling,</text>
+  <text class="t-meta" x="612" y="216">not a latency configuration.</text>
+
+  <path class="flow" d="M 826 175 H 862" marker-end="url(#mb)"/>
+
+  <rect class="card-mut" x="866" y="126" width="230" height="98" rx="9"/>
+  <text class="t-step" x="882" y="148">MODEL CARD</text>
+  <text class="t-node" x="882" y="168">What was trained, on what</text>
+  <text class="t-meta" x="882" y="187">metrics · per-key F1 · config hash</text>
+  <text class="t-meta" x="882" y="203">git SHA · MLflow run · corpus</text>
+  <text class="t-meta" x="882" y="216">fingerprint and size</text>
+
+  <path class="flow" d="M 1096 175 H 1132" marker-end="url(#mb)"/>
+  <rect class="card-mut" x="1136" y="140" width="128" height="70" rx="9"/>
+  <text class="t-node" x="1152" y="168">Candidate</text>
+  <text class="t-mono" x="1152" y="188">stage=candidate</text>
+
+  <!-- ── gate ─────────────────────────────────────────────────── -->
+  <path class="flow" d="M 1200 210 V 250 H 660 V 282" marker-end="url(#mb)"/>
+
+  <rect class="card-gate" x="304" y="286" width="712" height="176" rx="11"/>
+  <text class="t-step" x="326" y="310" fill="#eb6834">PROMOTION GATE — the decision layer</text>
+  <text class="t-node" x="326" y="332">Is this candidate demonstrably better than what is serving?</text>
+
+  <text class="t-mono" x="326" y="358">corpus_size</text>
+  <text class="t-meta" x="470" y="358">a win on eight documents is not a win</text>
+  <text class="t-mono" x="326" y="378">floor:&lt;metric&gt;</text>
+  <text class="t-meta" x="470" y="378">some minimums hold regardless of the champion</text>
+  <text class="t-mono" x="326" y="398">same_corpus</text>
+  <text class="t-meta" x="470" y="398">two models scored on different data were not compared</text>
+  <text class="t-mono" x="326" y="418">improvement</text>
+  <text class="t-meta" x="470" y="418">promoting on 0.001 is promoting on measurement noise</text>
+  <text class="t-mono" x="326" y="438">guard:&lt;metric&gt;</text>
+  <text class="t-meta" x="470" y="438">extracting better while grounding worse is not an upgrade</text>
+
+  <rect class="card" x="1040" y="286" width="248" height="176" rx="11"/>
+  <text class="t-step" x="1058" y="310">THE CHECK THAT EARNS THE MODULE</text>
+  <text class="t-node" x="1058" y="332">per_key_regression</text>
+  <text class="t-meta" x="1058" y="354">Weighted F1 is support-weighted,</text>
+  <text class="t-meta" x="1058" y="370">so a candidate can gain half a</text>
+  <text class="t-meta" x="1058" y="386">point overall while one field —</text>
+  <text class="t-meta" x="1058" y="402">the one finance reads — drops</text>
+  <text class="t-meta" x="1058" y="418">twenty. Checked independently</text>
+  <text class="t-meta" x="1058" y="434">of the aggregate.</text>
+  <text class="t-mono" x="1058" y="452">tolerance 0.05</text>
+
+  <!-- ── outcomes ─────────────────────────────────────────────── -->
+  <path class="flow-ok" d="M 460 462 V 508" marker-end="url(#mg)"/>
+  <text class="t-pass" x="470" y="490">PASS</text>
+
+  <path class="flow-no" d="M 860 462 V 508" marker-end="url(#mo)"/>
+  <text class="t-hold" x="870" y="490">HOLD</text>
+
+  <rect class="card-ok" x="336" y="512" width="248" height="96" rx="9"/>
+  <text class="t-step" x="354" y="534">04 · REGISTER</text>
+  <text class="t-node" x="354" y="554">Candidate → champion</text>
+  <text class="t-meta" x="354" y="574">The outgoing champion is archived,</text>
+  <text class="t-meta" x="354" y="590">not deleted — it is the rollback target.</text>
+
+  <path class="flow-ok" d="M 584 560 H 620" marker-end="url(#mg)"/>
+
+  <rect class="card-ok" x="624" y="512" width="248" height="96" rx="9"/>
+  <text class="t-step" x="642" y="534">05 · DEPLOY</text>
+  <text class="t-node" x="642" y="554">SageMaker endpoint</text>
+  <text class="t-meta" x="642" y="574">Real-time for interactive work;</text>
+  <text class="t-meta" x="642" y="590">async, scaling to zero, for batches.</text>
+
+  <rect class="card-gate" x="912" y="512" width="376" height="96" rx="9"/>
+  <text class="t-step" x="930" y="534" fill="#eb6834">PIPELINE STOPS — with the report attached</text>
+  <text class="t-node" x="930" y="554">Not deploying is the pipeline succeeding</text>
+  <text class="t-meta" x="930" y="574">A pipeline that always deploys what it trained</text>
+  <text class="t-meta" x="930" y="590">ships regressions on a schedule.</text>
+
+  <!-- rollback -->
+  <path class="flow-d" d="M 748 608 V 646 H 300 V 570 H 332" marker-end="url(#mn)"/>
+  <rect fill="#fcfcfb" x="430" y="636" width="250" height="20"/>
+  <text class="t-edge" x="436" y="651">rollback — restore the archived champion</text>
+
+  <!-- mlflow spine -->
+  <rect class="card-mut" x="56" y="676" width="1232" height="66" rx="10"/>
+  <text class="t-step" x="76" y="700">MLFLOW — EVERY STEP, ONE ENTRY POINT</text>
+  <text class="t-meta" x="76" y="722">Full RunConfig as params · headline metrics · <tspan font-family="ui-monospace, monospace" fill="#2a78d6">f1/&lt;key&gt;</tspan> per schema key, so a regression traces to the field that caused it rather than the average that moved · <tspan font-family="ui-monospace, monospace">support/&lt;key&gt;</tspan> · run.json artefact</text>
+  <text class="t-mono" x="1000" y="700">optional — degrades to structured logs</text>
+
+  <!-- One connector down the left gutter rather than three through the cards. -->
+  <path class="flow-d" d="M 44 242 V 672" marker-end="url(#mn)"/>
+</svg>

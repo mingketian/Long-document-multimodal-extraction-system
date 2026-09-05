@@ -7,6 +7,8 @@
     throughline sweep     examples/corpus --schema invoice
     throughline build-dataset examples/corpus --schema invoice --out data/train.jsonl
     throughline inspect   examples/documents/invoice_0001.json --schema invoice
+    throughline registry  --promote lora-r16-v3 --strict
+    throughline pipeline  --schema invoice --bucket my-bucket
     throughline schemas
 """
 
@@ -248,6 +250,62 @@ def cmd_cache(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_registry(args: argparse.Namespace) -> int:
+    """Inspect the model registry, or promote / roll back a model."""
+    from throughline.training.registry import STRICT, ModelRegistry, PromotionGate
+
+    registry = ModelRegistry(path=args.path)
+
+    if args.promote:
+        gate = STRICT if args.strict else PromotionGate()
+        decision = registry.promote(args.promote, gate, force=args.force)
+        print(decision.report())
+        return 0 if decision.promote else 1
+
+    if args.rollback:
+        restored = registry.rollback(schema=args.schema or None)
+        if restored is None:
+            print("nothing to roll back to", file=sys.stderr)
+            return 1
+        print(f"rolled back to {restored.model_id}")
+        return 0
+
+    print(registry.table())
+    champion = registry.champion(args.schema or None)
+    if champion:
+        print(f"\nchampion: {champion.model_id} · {champion.adapter_uri}")
+    return 0
+
+
+def cmd_pipeline(args: argparse.Namespace) -> int:
+    """Render or export the retraining DAG."""
+    from throughline.training.pipeline import (
+        PipelineConfig,
+        export_definition,
+        render_plan,
+        validate_plan,
+    )
+
+    config = PipelineConfig(
+        schema=args.schema,
+        bucket=args.bucket or "BUCKET",
+        role_arn=args.role or "",
+        endpoint_name=args.endpoint or "throughline-qwen25vl",
+    )
+
+    problems = validate_plan(config)
+    if problems:
+        print("pipeline plan is invalid:", file=sys.stderr)
+        for problem in problems:
+            print(f"  {problem}", file=sys.stderr)
+        return 1
+
+    if args.out:
+        path = export_definition(config, args.out)
+        print(f"wrote {path}", file=sys.stderr)
+    print(render_plan(config))
+    return 0
+
 # ── parser ────────────────────────────────────────────────────────────
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
@@ -315,6 +373,23 @@ def build_parser() -> argparse.ArgumentParser:
     schemas = subparsers.add_parser("schemas", help="list registered schemas")
     schemas.add_argument("--verbose", action="store_true")
     schemas.set_defaults(func=cmd_schemas)
+
+    registry = subparsers.add_parser("registry", help="model registry: list, promote, roll back")
+    registry.add_argument("--path", default="results/model_registry.json")
+    registry.add_argument("--schema", default="", help="filter to one schema")
+    registry.add_argument("--promote", metavar="MODEL_ID", help="run the gate and promote")
+    registry.add_argument("--strict", action="store_true", help="use the strict gate profile")
+    registry.add_argument("--force", action="store_true", help="promote over a failed gate")
+    registry.add_argument("--rollback", action="store_true", help="restore the previous champion")
+    registry.set_defaults(func=cmd_registry)
+
+    pipeline = subparsers.add_parser("pipeline", help="render the retraining DAG")
+    pipeline.add_argument("--schema", default="invoice")
+    pipeline.add_argument("--bucket", help="S3 bucket for artefacts")
+    pipeline.add_argument("--role", help="SageMaker execution role ARN")
+    pipeline.add_argument("--endpoint", help="endpoint updated on promotion")
+    pipeline.add_argument("--out", help="write the definition JSON here")
+    pipeline.set_defaults(func=cmd_pipeline)
 
     cache = subparsers.add_parser("cache", help="inspect or clear the prompt cache")
     cache.add_argument("--dir", default=".cache/prompts")

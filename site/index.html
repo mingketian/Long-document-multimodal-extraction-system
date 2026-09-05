@@ -189,6 +189,7 @@
       <a class="link" href="#problem">Problem</a>
       <a class="link" href="#architecture">Extraction</a>
       <a class="link" href="#ops">Release automation</a>
+      <a class="link" href="#mlops">MLOps</a>
       <a class="link" href="#results">Results</a>
       <a class="link" href="#run">Run it</a>
       <button id="themeToggle" class="btn" type="button" aria-label="Toggle colour theme">◐</button>
@@ -475,6 +476,72 @@
   </div>
 </section>
 
+
+<!-- ── MLOps ────────────────────────────────────────────── -->
+<section id="mlops">
+  <div class="wrap">
+    <div class="sec-eyebrow">MLOps</div>
+    <h2>A trained adapter is an artefact, not a system.</h2>
+    <p class="sec-lede">
+      A system is what decides whether that artefact should serve traffic, records why,
+      deploys it, and can undo it. Three of those four are where model-quality incidents
+      actually live.
+    </p>
+
+    <div class="arch">
+      <img src="figures/mlops_lifecycle.svg" alt="MLOps lifecycle: build page-group datasets, train LoRA on SageMaker, evaluate on a held-out corpus, pass through a promotion gate, then register and deploy — or stop with the gate report. Every step logs to MLflow.">
+    </div>
+
+    <div class="cards" style="margin-top:32px">
+      <div class="card">
+        <div class="tag">Orchestration</div>
+        <h3>Three levels, kept distinct</h3>
+        <p>
+          Within a document, the extraction orchestrator. Around the model, a SageMaker
+          Pipelines DAG with a conditional edge. Around the platform, the Fork-Update Agent.
+        </p>
+        <div class="fix">→ <b>Levels 2 and 3 are both Step Functions</b> — "detect a change, validate, decide, deploy or stop" is one shape.</div>
+      </div>
+      <div class="card">
+        <div class="tag">The gate</div>
+        <h3>Per-key regression</h3>
+        <p>
+          Weighted F1 is support-weighted, so a candidate can gain half a point overall
+          while one field — the one finance reads — drops twenty.
+        </p>
+        <div class="fix">→ <b>Checked independently of the aggregate</b>, alongside corpus-fingerprint equality and guarded-metric floors.</div>
+      </div>
+      <div class="card">
+        <div class="tag">Registry</div>
+        <h3>Rollback is a lookup</h3>
+        <p>
+          The outgoing champion is archived, not deleted. Every card carries metrics,
+          per-key F1, config hash, git SHA and corpus fingerprint.
+        </p>
+        <div class="fix">→ <b>A registry that cannot roll back is a list.</b> File-backed, so it answers from a laptop or from CI.</div>
+      </div>
+    </div>
+
+    <div class="note warm">
+      <b>Higher F1, held.</b> A candidate scoring 0.931 against a champion's 0.923 was
+      refused promotion because citation precision fell from 0.942 to 0.860. In a system
+      whose premise is that every value is attributable, that is a downgrade wearing a
+      better headline number — and the gate exits non-zero, so CI fails on it.
+    </div>
+
+    <p class="sec-lede" style="margin-top:28px">
+      The DAG is built as a backend-agnostic plan first and rendered into SageMaker objects
+      second, so <span class="mono">build_plan()</span> and
+      <span class="mono">validate_plan()</span> are pure functions CI can check on every
+      commit — and a pipeline with no condition step fails validation, because it would
+      deploy unconditionally. Full detail in
+      <a href="https://github.com/mingketian/Long-document-multimodal-extraction-system/blob/main/docs/MLOPS.md">docs/MLOPS.md</a>
+      and
+      <a href="https://github.com/mingketian/Long-document-multimodal-extraction-system/blob/main/docs/MODEL_AND_TRAINING.md">docs/MODEL_AND_TRAINING.md</a>.
+    </p>
+  </div>
+</section>
+
 <!-- ── run it ──────────────────────────────────────────── -->
 <section id="run">
   <div class="wrap">
@@ -543,6 +610,8 @@ make results</pre>
         <a href="https://github.com/mingketian/Long-document-multimodal-extraction-system/blob/main/docs/EVALUATION.md">Evaluation</a>
         <a href="https://github.com/mingketian/Long-document-multimodal-extraction-system/blob/main/docs/DEPLOYMENT.md">Deployment &amp; MLOps</a>
         <a href="https://github.com/mingketian/Long-document-multimodal-extraction-system/blob/main/docs/FORK_UPDATE_AGENT.md">Fork-Update Agent</a>
+        <a href="https://github.com/mingketian/Long-document-multimodal-extraction-system/blob/main/docs/MLOPS.md">MLOps</a>
+        <a href="https://github.com/mingketian/Long-document-multimodal-extraction-system/blob/main/docs/MODEL_AND_TRAINING.md">Model &amp; training</a>
       </div>
       <div class="col">
         <h5>Built on</h5>

@@ -25,7 +25,7 @@ release-automation agent that keeps the platform underneath it current.
 [![Textract](https://img.shields.io/badge/AWS-Textract-FF9900?style=flat-square&logo=amazonaws&logoColor=white)](src/throughline/ingest/ocr.py)
 [![CDK](https://img.shields.io/badge/AWS-CDK%20%2B%20Step%20Functions-FF9900?style=flat-square&logo=amazonaws&logoColor=white)](ops/fork_update_agent)
 [![MLflow](https://img.shields.io/badge/MLflow-tracking-0194E2?style=flat-square&logo=mlflow&logoColor=white)](src/throughline/evaluation/mlflow_tracking.py)
-[![Tests](https://img.shields.io/badge/tests-148%20passing-1baf7a?style=flat-square)](tests)
+[![Tests](https://img.shields.io/badge/tests-189%20passing-1baf7a?style=flat-square)](tests)
 [![Ruff](https://img.shields.io/badge/lint-ruff%20clean-1baf7a?style=flat-square)](pyproject.toml)
 
 <br>
@@ -33,6 +33,7 @@ release-automation agent that keeps the platform underneath it current.
 **[Overview](#the-internship-in-one-page)** ·
 **[Part I — Extraction](#part-i--throughline-the-extraction-system)** ·
 **[Part II — Release automation](#part-ii--the-fork-update-agent)** ·
+**[MLOps](#mlops-the-lifecycle-around-the-model)** ·
 **[Results](#results)** ·
 **[Quickstart](#quickstart)** ·
 **[Docs](#documentation)**
@@ -53,7 +54,7 @@ document processing stack. Two problems sat on either side of that system.
 <tr>
 <td width="50%" valign="top">
 
-### ⬤ Part I — the documents were too long
+#### Part&nbsp;I &nbsp;·&nbsp; The documents were too long
 
 The accelerator handles a page well. Enterprise documents are not one page — they are
 invoices whose line-item tables run for twenty, statements whose balances only reconcile
@@ -69,7 +70,7 @@ LoRA and served from SageMaker.
 </td>
 <td width="50%" valign="top">
 
-### ⬤ Part II — the platform underneath drifted
+#### Part&nbsp;II &nbsp;·&nbsp; The platform underneath drifted
 
 That pipeline is built on a fork of `idp_common`, the accelerator's shared library.
 Upstream ships releases regularly, and syncing the fork was manual: slow enough to be
@@ -199,11 +200,134 @@ exists to enforce. Summarising rather than dumping is the point.
 
 </details>
 
-## Training
+## The model: Qwen2.5-VL-7B and LoRA
 
-The unit of training is a **page-group set**: one bounded window, the carry-over state a
-real run would have had at that point, and the structured target for exactly that
-window.
+<details open>
+<summary><b>The visual token budget — the arithmetic that shapes everything else</b></summary>
+
+<br>
+
+Qwen2.5-VL's vision encoder uses a 14×14 patch with 2×2 spatial merging, so one visual
+token covers a **28×28 pixel** region. A page rendered at 200 DPI on US Letter is about
+1700×2200 px:
+
+```
+(1700 / 28) × (2200 / 28)  ≈  61 × 79  ≈  4,800 visual tokens per page
+```
+
+At four pages per group that is **~19,200 visual tokens before a single word of the
+schema, the layout text, or the carry-over state.** Against a practical 32K context the
+prompt no longer fits — and every token spent on page pixels is one not spent on the
+instructions that make the output usable.
+
+| `max_pixels` | Tokens/page | 4-page group | Fits an 8K context? |
+|---|---:|---:|---|
+| `1280 × 28 × 28` *(default here)* | ~1,280 | ~5,120 | Yes, with ~3K for text |
+| `2048 × 28 × 28` | ~2,048 | ~8,192 | No |
+| unbounded at 200 DPI | ~4,800 | ~19,200 | No |
+
+Capping resolution loses fine visual detail. **That loss is exactly what the OCR/layout
+signal covers.** The image carries structure — table geometry, stamps, which column a
+number sits in; the layout blocks carry exact characters and coordinates. Fusing them
+means the cap costs structure the model can still infer, not characters it can no longer
+read. A pure-vision pipeline would have to choose between fitting the document and
+reading it.
+
+</details>
+
+<details>
+<summary><b>Where the adapter goes, and why the vision tower is frozen</b></summary>
+
+<br>
+
+```python
+LoraConfig(
+    r=16, alpha=32, dropout=0.05,
+    target_modules=("q_proj", "k_proj", "v_proj", "o_proj",
+                    "gate_proj", "up_proj", "down_proj"),
+)
+```
+
+Attention **and** MLP projections, language model only. ~20M trainable against 7B —
+about **0.3%** — which is what makes one shared base checkpoint across every schema
+practical: a new schema is a new adapter, not a new 15 GB artefact.
+
+**The mechanical reason to freeze the vision tower:** at 7B the encoder is a small
+fraction of parameters but a large fraction of activation memory during backward.
+Freezing it plus gradient checkpointing is what makes an 8K-sequence batch fit on a
+24 GB A10G at all.
+
+**The substantive reason, which is stronger:** the failure modes were never visual. The
+base model reads invoices fine. What it does wrong before adaptation is emit an
+undeclared field, restart a table at a page boundary, cite a block id that does not
+exist, and re-state a value the carry-over already settled. Every one is a
+language-modelling failure about output convention and context use.
+
+| r | Observed |
+|---:|---|
+| 8 | Underfits table continuation — still restarted tables at boundaries |
+| **16** | Continuation learned; the working default |
+| 32 | No gain worth the memory and the longer step time |
+
+Table continuation is the discriminating behaviour. Header fields are easy enough that
+r=8 handles them; deciding whether a row at the top of page 8 continues page 7's table
+is where capacity started to matter.
+
+</details>
+
+<details>
+<summary><b>Loss on the completion only, and what that saves</b></summary>
+
+<br>
+
+The prompt holds the full schema, block-addressed layout for up to four pages, and the
+carry-over — and **the model is handed all of it at inference time**. Training it to
+reproduce that text spends most of the gradient learning to echo the input.
+
+```python
+cut = last_index_of(input_ids, tokenizer("<|im_start|>assistant"))
+labels = [-100] * cut + labels[cut:]
+```
+
+On a typical 8K example with a ~600-token target, loss moves from ~8,000 positions to
+~600 — essentially all of the useful signal, none of the echo. The marker search runs
+**backwards**, because the assistant marker can legitimately appear inside quoted layout
+text; the last occurrence is the real turn boundary.
+
+</details>
+
+<details>
+<summary><b>Memory, throughput, and why batch size is 1</b></summary>
+
+<br>
+
+Single `ml.g5.2xlarge` (1× A10G, 24 GB), bf16, sequence length 8,192:
+
+| | |
+|---|---|
+| Base weights (bf16) | ~15 GB |
+| LoRA adapter + optimiser state | ~0.5 GB |
+| Activations, gradient checkpointing on | ~4 GB at batch 1 |
+| Headroom | ~4 GB |
+
+Hence `per_device_batch_size=1` with `gradient_accumulation_steps=16` — an effective
+batch of 16 without exceeding memory. **Batch size is set by sequence length, not by
+preference.** Gradient checkpointing costs ~30% throughput and buys the activation
+memory that makes 8K possible at all; without it sequence length would have to drop, and
+truncating a page-group prompt drops the end of the last page — exactly where a
+continued table lives.
+
+Spot instances are safe because the trainer checkpoints to S3; an interruption resumes.
+
+</details>
+
+<details>
+<summary><b>The training unit, and the four behaviours it teaches</b></summary>
+
+<br>
+
+The unit is a **page-group set**: one bounded window, the carry-over a real run would
+have had at that point, and the target for exactly that window.
 
 - Training on whole documents teaches nothing about continuation — the model never sees
   a boundary.
@@ -211,23 +335,44 @@ window.
   need it not to make.
 
 Each example is built by **replaying the real pipeline's grouping** over a labelled
-document, so training data and inference data are the same shape by construction. Two
-details carry the value: carry-over is *simulated, not idealised* (group *n* sees only
-what groups 0..*n*−1 could have produced), and a field is *taught once* — if group 0
-settles `invoice_number`, group 1's target omits it, which demonstrates the "do not
-repeat what is settled" rule rather than merely stating it in the prompt.
+document, so training data and inference data are the same shape by construction. Four
+behaviours are demonstrated by construction rather than merely instructed:
 
-Splits are **by document, never by example** — splitting by example would put group 0 in
-train and group 1 in validation, and the carry-over would leak the answer across the
-boundary.
-
-**LoRA, and three defensible choices:**
-
-| Choice | Rationale |
+| Behaviour | How the data teaches it |
 |---|---|
-| LoRA, not full fine-tuning | An order of magnitude less compute; adapters in tens of MB; one shared base across every schema; no risk of degrading the general document understanding that made the base worth starting from. |
-| **Vision tower frozen** | The task is not "learn to see documents" — the base already can. It is "emit this schema, from these page groups, with these citations". |
-| **Loss on the completion only** | The prompt carries the schema and the full page layout. Training the model to reproduce text it will always be handed wastes most of the gradient. |
+| Emit only the declared schema | Targets are built from the schema; undeclared keys never appear |
+| Cite the block you read | Every target field carries the gold `block_id` for that group's pages |
+| Announce a continuing table | `open_tables` is populated when gold rows exist past the group's last page |
+| Do not repeat what is settled | If group 0 settles `invoice_number`, group 1's target omits it |
+
+Carry-over is **simulated, not idealised** — group *n* sees only what groups 0..*n*−1
+could have produced. Splits are **by document, never by example**: splitting by example
+would put group 0 in train and group 1 in validation, and the carry-over would leak the
+answer straight across the boundary.
+
+</details>
+
+<details>
+<summary><b>Decoding: greedy always, repetition guard opt-in</b></summary>
+
+<br>
+
+Extraction has one correct answer, so sampling adds variance that is purely a cost — and
+makes a cached result differ from a fresh one for no reason.
+
+The **no-repeat n-gram guard** is opt-in. Long-horizon decoding over a table is where
+models fall into repetition loops — the same row emitted forty times until the budget
+runs out. A constraint in the 20–40 range breaks that, but it can also suppress
+*legitimate* repetition: two identical line items on a real invoice are two rows, not a
+loop. It is a per-schema decision, so it is a config field. This mirrors the technique in
+[Unlimited-OCR](https://github.com/baidu/Unlimited-OCR) and DeepSeek-OCR for exactly this
+failure on long-horizon document parsing.
+
+Full detail: **[`docs/MODEL_AND_TRAINING.md`](docs/MODEL_AND_TRAINING.md)**.
+
+</details>
+
+<br>
 
 <br>
 
@@ -299,12 +444,134 @@ Full detail — including the alternatives considered and rejected — in
 
 ---
 
+# MLOps: the lifecycle around the model
+
+A trained adapter is an artefact. A system is what decides whether that artefact should
+serve traffic, records why, deploys it, and can undo it.
+
+![MLOps lifecycle](results/figures/mlops_lifecycle.svg)
+
+## Orchestration, at three levels
+
+The word covers three different things here, with different failure modes and different
+owners. Keeping them distinct is the point.
+
+| Level | Scope | Module | Control flow |
+|---|---|---|---|
+| **1** | Within a document | [`pipeline/orchestrator.py`](src/throughline/pipeline/orchestrator.py) | prompt → generate → parse → attribute → merge → ask the exit policy, per page group |
+| **2** | Around the model | [`training/pipeline.py`](src/throughline/training/pipeline.py) | build dataset → train → evaluate → **gate** → register → deploy |
+| **3** | Around the platform | [`ops/fork_update_agent/`](ops/fork_update_agent) | detect release → notify → human gate → deploy → smoke test → report |
+
+Levels 2 and 3 are both Step Functions, and that is not a coincidence: *"detect a change,
+validate it, decide, deploy or stop"* is the same shape whether the change is a new
+adapter or a new upstream release.
+
+```bash
+throughline pipeline --schema invoice --bucket my-bucket --out results/pipeline.json
+```
+
+`build_plan()` and `validate_plan()` are **pure functions** — no AWS SDK, no credentials.
+That is what lets CI check the DAG's shape on every commit, and a pipeline change show up
+as a reviewable JSON diff. `validate_plan()` explicitly fails a pipeline with **no
+condition step**, because that pipeline would deploy unconditionally.
+
+## The promotion gate
+
+The decision layer, and the piece most worth arguing about.
+
+| Check | Blocks on | Exists because |
+|---|---|---|
+| `corpus_size` | Fewer than 25 documents | A win on eight documents is not a win |
+| `floor:<metric>` | Below an absolute minimum | Some floors hold regardless of the champion |
+| `same_corpus` | Different corpus fingerprints | Two models scored on different data have not been compared |
+| `improvement:<primary>` | Gain below `min_improvement` | Promoting on 0.001 is promoting on measurement noise |
+| `guard:<metric>` | A guarded metric regressing | Extracting better while *grounding* worse is not an upgrade |
+| **`per_key_regression`** | **Any field dropping past tolerance** | **A support-weighted mean can improve while one field collapses** |
+
+That last row is what earns the module. Weighted F1 is support-weighted, so a candidate
+can gain half a point overall while `total_amount` — one field among eleven, and the one
+finance actually reads — drops twenty.
+
+```console
+$ throughline registry --promote lora-r32-v3
+
+HOLD: lora-r32-v3 vs lora-r16-v2
+  [PASS] corpus_size: scored on 120 documents (minimum 25)
+  [FAIL] floor:citation_precision: 0.8600 vs floor 0.9000
+  [PASS] same_corpus: candidate and champion scored on the same corpus
+  [PASS] improvement:weighted_f1: 0.9230 → 0.9310 (+0.0080, need ≥ +0.0050)
+  [PASS] guard:schema_valid_rate: 0.9860 → 0.9860 (-0.0000, tolerance 0.0100)
+  [FAIL] guard:citation_precision: 0.9420 → 0.8600 (-0.0820, tolerance 0.0100)
+  [PASS] per_key_regression: no field regressed beyond tolerance
+```
+
+**Higher F1, held.** It grounds 8 points worse, and in a system whose premise is that
+every value is attributable, that is a downgrade wearing a better headline number. Exit
+code 1, so a CI job fails on it. `--force` promotes over a failed gate and **writes that
+fact into the model card** — an override is a recorded decision, not an invisible one.
+
+## The registry
+
+```console
+$ throughline registry
+
+model        stage             F1   valid    cite   docs  created
+--------------------------------------------------------------------
+lora-r16-v1  archived       0.901   0.986   0.930    120  2026-11-02
+lora-r16-v2  champion       0.923   0.986   0.942    120  2026-11-19
+lora-r32-v3  candidate      0.931   0.986   0.860    120  2026-12-04
+```
+
+```
+candidate ──gate──▶ champion ──superseded──▶ archived ──rollback──▶ champion
+```
+
+A `ModelCard` carries adapter URI, base model, metrics, **per-key F1**, training config
+and its hash, git SHA, MLflow run id, corpus fingerprint and size, and stage.
+Deliberately **file-backed rather than a service**: the registry's job is to be the single
+answer to "what is serving, and what did it score?", and a JSON file in version control
+answers that from a laptop, from CI, and from a SageMaker job without anything needing to
+be up.
+
+The outgoing champion is **archived, not deleted** — it is the rollback target. A registry
+that cannot roll back is a list.
+
+## Tracking
+
+Every evaluation run and training job logs through one entry point. Beyond the headline
+metrics, **per-key F1 is logged as its own metric** (`f1/<key>`) so a regression traces to
+the field that caused it rather than the average that moved — and `support/<key>` too,
+because weighted F1 is support-weighted and the weights belong in the record.
+
+MLflow is **optional**. Without it every function degrades to a structured log line. An
+evaluation harness that cannot run without a tracking server is a tracking server with an
+evaluation harness attached.
+
+## Honest gaps
+
+Named, because a lifecycle diagram with no gaps is a diagram rather than a system.
+
+- **No shadow deployment.** Promotion updates the endpoint directly. Mirroring live
+  traffic to a candidate before cutting over is next; `Stage.STAGING` exists for it.
+- **No drift detection.** Nothing watches the *input* distribution. A corpus shifting
+  toward an untrained document type degrades quality with every offline metric still
+  looking fine.
+- **No automated retraining trigger.** Wiring the DAG to a schedule is easy; deciding
+  *when* retraining is warranted is not — and shipping the trigger before the drift
+  detection would be backwards.
+
+Full detail: **[`docs/MLOPS.md`](docs/MLOPS.md)**.
+
+<br>
+
+---
+
 ## Results
 
 Two kinds of number appear here, and conflating them would be dishonest, so they live in
 separate files, separate figures, and separate sections.
 
-### ⬤ Reported outcomes — Ricoh USA deployment
+### Reported outcomes &nbsp;·&nbsp; Ricoh USA deployment
 
 > [!IMPORTANT]
 > Measured internally between September and December 2025 on **~600 proprietary
@@ -334,7 +601,7 @@ useful of the first pair — it is the difference between 1 document in 15 needi
 and 1 in 70. And on the latency result, the *pairing* is the claim: a 20% speedup that
 costs five F1 points is not interesting; one that costs 0.3 is a different decision.
 
-### ⬤ Measured by this repository
+### Measured by this repository
 
 Produced by `make results` over the synthetic corpus using the **rule-based baseline
 backend** — keyword and regex matching, no model. Absolute values are low by
@@ -429,9 +696,12 @@ Evidence:
 </table>
 
 ```bash
-throughline sweep examples/corpus_agreements --schema service_agreement   # the trade-off table
-make demo                                                                # all of the above
-make test                                                                # 148 tests
+throughline sweep    examples/corpus_agreements --schema service_agreement  # the trade-off table
+throughline registry                                                       # what is serving
+throughline registry --promote lora-r16-v3 --strict                        # run the gate
+throughline pipeline --schema invoice --bucket my-bucket                   # render the DAG
+make demo                                                                  # all of the above
+make test                                                                  # 189 tests
 ```
 
 In Python:
@@ -466,7 +736,7 @@ throughline extract contract.pdf --schema service_agreement \
 ```text
 Throughline/
 │
-├── src/throughline/              ── PART I: the extraction pipeline (~5.9K lines)
+├── src/throughline/              ── PART I: the extraction pipeline (~8.9K lines)
 │   ├── schema/                   extraction contracts, validation, repair
 │   ├── ingest/                   pages, layout blocks, Textract / PyMuPDF providers
 │   ├── grouping/                 bounded, overlapping page groups
@@ -478,7 +748,8 @@ Throughline/
 │   ├── attribution/              citation verification
 │   ├── pipeline/                 orchestrator + early-exit policy
 │   ├── caching/                  content-addressed OCR and prompt caches
-│   ├── training/                 page-group datasets, LoRA, SageMaker launchers
+│   ├── training/                 page-group datasets · LoRA · model registry
+│   │                             promotion gate · SageMaker Pipelines DAG
 │   └── evaluation/               metrics, harness, MLflow tracking
 │
 ├── ops/fork_update_agent/        ── PART II: release automation, as built
@@ -488,7 +759,7 @@ Throughline/
 │   └── README.md                 the original project README
 │
 ├── examples/                     20 synthetic documents (255 pages) + labelled corpora
-├── tests/                        148 tests
+├── tests/                        189 tests
 ├── tools/                        corpus, table and figure generation
 ├── results/                      committed tables and figures
 ├── docs/                         architecture · evaluation · deployment · ops · PROCRV
@@ -505,14 +776,16 @@ Throughline/
 |---|---|
 | **[Architecture](docs/ARCHITECTURE.md)** | Stage-by-stage walkthrough of the extraction pipeline, with the design decisions and one recorded bug |
 | **[Evaluation](docs/EVALUATION.md)** | Metric definitions, reported vs measured numbers, per-key results, limitations |
-| **[Deployment & MLOps](docs/DEPLOYMENT.md)** | SageMaker serving, LoRA training, MLflow tracking, operating the CLI |
+| **[The model & training](docs/MODEL_AND_TRAINING.md)** | Why Qwen2.5-VL, the visual token budget, adapter placement, memory arithmetic, decoding |
+| **[MLOps](docs/MLOPS.md)** | Orchestration at three levels, the registry, the promotion gate, tracking, honest gaps |
+| **[Deployment](docs/DEPLOYMENT.md)** | SageMaker serving, LoRA training jobs, operating the CLI |
 | **[Fork-Update Agent](docs/FORK_UPDATE_AGENT.md)** | Part II in full: the problem, the four defensible decisions, security posture, rejected alternatives |
 | **[Operational runbook](docs/FORK_UPDATE_RUNBOOK.md)** | Deploy, subscribe, trigger, monitor, troubleshoot |
 | **[PROCRV design document](docs/PROCRV_document.pdf)** | The formal systems-engineering document written for the fork-update agent |
 
 ```bash
 make help       # every task
-make test       # 148 tests
+make test       # 189 tests
 make results    # regenerate every table and figure
 make demo       # inspect + extract + sweep, end to end
 make sweep      # profile comparison on both corpora
