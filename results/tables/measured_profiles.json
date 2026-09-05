@@ -10,7 +10,7 @@
     "pages_read_fraction": 1.0,
     "pages_read": 69,
     "pages_total": 69,
-    "seconds_per_document": 0.00325
+    "seconds_per_document": 0.00303
   },
   {
     "schema": "invoice",
@@ -23,7 +23,7 @@
     "pages_read_fraction": 1.0,
     "pages_read": 69,
     "pages_total": 69,
-    "seconds_per_document": 0.00282
+    "seconds_per_document": 0.0026
   },
   {
     "schema": "invoice",
@@ -36,7 +36,7 @@
     "pages_read_fraction": 1.0,
     "pages_read": 69,
     "pages_total": 69,
-    "seconds_per_document": 0.00361
+    "seconds_per_document": 0.00295
   },
   {
     "schema": "service_agreement",
@@ -47,22 +47,22 @@
     "citation_precision": 1.0,
     "cross_page_accuracy": 0.0,
     "pages_read_fraction": 1.0,
-    "pages_read": 177,
-    "pages_total": 177,
-    "seconds_per_document": 0.01191
+    "pages_read": 186,
+    "pages_total": 186,
+    "seconds_per_document": 0.0103
   },
   {
     "schema": "service_agreement",
     "profile": "balanced",
     "documents": 8,
-    "weighted_f1": 0.2808,
+    "weighted_f1": 0.2929,
     "schema_valid_rate": 1.0,
     "citation_precision": 1.0,
     "cross_page_accuracy": 0.0,
-    "pages_read_fraction": 0.3164,
+    "pages_read_fraction": 0.3011,
     "pages_read": 56,
-    "pages_total": 177,
-    "seconds_per_document": 0.00324
+    "pages_total": 186,
+    "seconds_per_document": 0.00273
   },
   {
     "schema": "service_agreement",
@@ -72,9 +72,9 @@
     "schema_valid_rate": 1.0,
     "citation_precision": 1.0,
     "cross_page_accuracy": 0.0,
-    "pages_read_fraction": 0.1356,
+    "pages_read_fraction": 0.129,
     "pages_read": 24,
-    "pages_total": 177,
-    "seconds_per_document": 0.00139
+    "pages_total": 186,
+    "seconds_per_document": 0.00107
   }
 ]

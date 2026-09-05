@@ -1,3 +1,3 @@
 schema,documents,pages_total,pages_min,pages_max,pages_mean,schema_keys,required_keys
 invoice,12,69,5,7,5.8,11,5
-service_agreement,8,177,18,25,22.1,9,3
+service_agreement,8,186,18,26,23.2,9,3

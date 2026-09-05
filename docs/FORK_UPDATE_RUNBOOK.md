@@ -700,7 +700,7 @@ To replace polling with instant webhook detection:
 ## Support and Escalation
 
 ### Documentation References
-- **Architecture**: [PROCRV Digest](procrv_digest.md)
+- **Architecture**: [PROCRV Digest](PROCRV_document.pdf)
 - **Quick Start**: [README.md](../README.md)
 - **GitHub Repository**: https://github.com/mingketian/Fork-Update-Agent-
 

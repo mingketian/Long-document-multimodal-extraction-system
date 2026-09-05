@@ -41,7 +41,7 @@
           {
             "block_id": "p1b2",
             "block_type": "key_value",
-            "text": "Effective Date: 2026-12-02",
+            "text": "Effective Date: 2026-01-25",
             "bbox": [
               0.08,
               0.34,
@@ -100,7 +100,7 @@
           {
             "block_id": "p2b2",
             "block_type": "paragraph",
-            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
+            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
             "bbox": [
               0.08,
               0.15,
@@ -113,7 +113,7 @@
           {
             "block_id": "p2b3",
             "block_type": "paragraph",
-            "text": "Any notice given under this Agreement shall be in writing and shall be delivered by hand, sent by pre-paid first class post, or sent by electronic mail to the address of the receiving party set out in the preamble.",
+            "text": "This Agreement constitutes the entire agreement between the parties and supersedes all previous agreements, understandings and arrangements between them.",
             "bbox": [
               0.08,
               0.26,
@@ -172,7 +172,7 @@
           {
             "block_id": "p3b2",
             "block_type": "paragraph",
-            "text": "If any provision of this Agreement is held to be invalid or unenforceable, that provision shall be severed and the remaining provisions shall continue in force.",
+            "text": "The parties shall keep confidential all information disclosed by the other party which is marked as confidential or which ought reasonably to be regarded as confidential, and shall not disclose it to any third party.",
             "bbox": [
               0.08,
               0.15,
@@ -185,7 +185,7 @@
           {
             "block_id": "p3b3",
             "block_type": "paragraph",
-            "text": "Neither party shall be liable for any failure or delay in performance to the extent that such failure or delay is caused by an event beyond its reasonable control, provided that the affected party gives prompt written notice.",
+            "text": "The parties shall keep confidential all information disclosed by the other party which is marked as confidential or which ought reasonably to be regarded as confidential, and shall not disclose it to any third party.",
             "bbox": [
               0.08,
               0.26,
@@ -198,25 +198,12 @@
           {
             "block_id": "p3b4",
             "block_type": "paragraph",
-            "text": "This Agreement constitutes the entire agreement between the parties and supersedes all previous agreements, understandings and arrangements between them.",
+            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
             "bbox": [
               0.08,
               0.37,
               0.92,
               0.46
-            ],
-            "confidence": 0.99,
-            "row_index": null
-          },
-          {
-            "block_id": "p3b5",
-            "block_type": "paragraph",
-            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
-            "bbox": [
-              0.08,
-              0.48,
-              0.92,
-              0.57
             ],
             "confidence": 0.99,
             "row_index": null
@@ -270,7 +257,7 @@
           {
             "block_id": "p4b3",
             "block_type": "paragraph",
-            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
+            "text": "This Agreement constitutes the entire agreement between the parties and supersedes all previous agreements, understandings and arrangements between them.",
             "bbox": [
               0.08,
               0.26,
@@ -283,7 +270,7 @@
           {
             "block_id": "p4b4",
             "block_type": "paragraph",
-            "text": "Neither party shall be liable for any failure or delay in performance to the extent that such failure or delay is caused by an event beyond its reasonable control, provided that the affected party gives prompt written notice.",
+            "text": "If any provision of this Agreement is held to be invalid or unenforceable, that provision shall be severed and the remaining provisions shall continue in force.",
             "bbox": [
               0.08,
               0.37,
@@ -296,7 +283,7 @@
           {
             "block_id": "p4b5",
             "block_type": "paragraph",
-            "text": "This Agreement constitutes the entire agreement between the parties and supersedes all previous agreements, understandings and arrangements between them.",
+            "text": "The parties shall keep confidential all information disclosed by the other party which is marked as confidential or which ought reasonably to be regarded as confidential, and shall not disclose it to any third party.",
             "bbox": [
               0.08,
               0.48,
@@ -342,7 +329,7 @@
           {
             "block_id": "p5b2",
             "block_type": "paragraph",
-            "text": "If any provision of this Agreement is held to be invalid or unenforceable, that provision shall be severed and the remaining provisions shall continue in force.",
+            "text": "Nothing in this Agreement is intended to, or shall be deemed to, establish any partnership or joint venture between the parties.",
             "bbox": [
               0.08,
               0.15,
@@ -355,7 +342,7 @@
           {
             "block_id": "p5b3",
             "block_type": "paragraph",
-            "text": "Neither party shall be liable for any failure or delay in performance to the extent that such failure or delay is caused by an event beyond its reasonable control, provided that the affected party gives prompt written notice.",
+            "text": "This Agreement constitutes the entire agreement between the parties and supersedes all previous agreements, understandings and arrangements between them.",
             "bbox": [
               0.08,
               0.26,
@@ -368,7 +355,7 @@
           {
             "block_id": "p5b4",
             "block_type": "paragraph",
-            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
+            "text": "If any provision of this Agreement is held to be invalid or unenforceable, that provision shall be severed and the remaining provisions shall continue in force.",
             "bbox": [
               0.08,
               0.37,
@@ -381,7 +368,7 @@
           {
             "block_id": "p5b5",
             "block_type": "paragraph",
-            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
+            "text": "Any notice given under this Agreement shall be in writing and shall be delivered by hand, sent by pre-paid first class post, or sent by electronic mail to the address of the receiving party set out in the preamble.",
             "bbox": [
               0.08,
               0.48,
@@ -427,7 +414,7 @@
           {
             "block_id": "p6b2",
             "block_type": "paragraph",
-            "text": "Any notice given under this Agreement shall be in writing and shall be delivered by hand, sent by pre-paid first class post, or sent by electronic mail to the address of the receiving party set out in the preamble.",
+            "text": "Neither party shall be liable for any failure or delay in performance to the extent that such failure or delay is caused by an event beyond its reasonable control, provided that the affected party gives prompt written notice.",
             "bbox": [
               0.08,
               0.15,
@@ -440,7 +427,7 @@
           {
             "block_id": "p6b3",
             "block_type": "paragraph",
-            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
+            "text": "The parties shall keep confidential all information disclosed by the other party which is marked as confidential or which ought reasonably to be regarded as confidential, and shall not disclose it to any third party.",
             "bbox": [
               0.08,
               0.26,
@@ -453,7 +440,7 @@
           {
             "block_id": "p6b4",
             "block_type": "paragraph",
-            "text": "The parties shall keep confidential all information disclosed by the other party which is marked as confidential or which ought reasonably to be regarded as confidential, and shall not disclose it to any third party.",
+            "text": "Nothing in this Agreement is intended to, or shall be deemed to, establish any partnership or joint venture between the parties.",
             "bbox": [
               0.08,
               0.37,
@@ -466,7 +453,7 @@
           {
             "block_id": "p6b5",
             "block_type": "paragraph",
-            "text": "The parties shall keep confidential all information disclosed by the other party which is marked as confidential or which ought reasonably to be regarded as confidential, and shall not disclose it to any third party.",
+            "text": "Any notice given under this Agreement shall be in writing and shall be delivered by hand, sent by pre-paid first class post, or sent by electronic mail to the address of the receiving party set out in the preamble.",
             "bbox": [
               0.08,
               0.48,
@@ -525,7 +512,7 @@
           {
             "block_id": "p7b3",
             "block_type": "paragraph",
-            "text": "Nothing in this Agreement is intended to, or shall be deemed to, establish any partnership or joint venture between the parties.",
+            "text": "This Agreement constitutes the entire agreement between the parties and supersedes all previous agreements, understandings and arrangements between them.",
             "bbox": [
               0.08,
               0.26,
@@ -538,12 +525,51 @@
           {
             "block_id": "p7b4",
             "block_type": "paragraph",
-            "text": "This Agreement constitutes the entire agreement between the parties and supersedes all previous agreements, understandings and arrangements between them.",
+            "text": "Any notice given under this Agreement shall be in writing and shall be delivered by hand, sent by pre-paid first class post, or sent by electronic mail to the address of the receiving party set out in the preamble.",
             "bbox": [
               0.08,
               0.37,
               0.92,
               0.46
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p7b5",
+            "block_type": "paragraph",
+            "text": "The parties shall keep confidential all information disclosed by the other party which is marked as confidential or which ought reasonably to be regarded as confidential, and shall not disclose it to any third party.",
+            "bbox": [
+              0.08,
+              0.48,
+              0.92,
+              0.57
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p7b6",
+            "block_type": "paragraph",
+            "text": "Initial Term: 36 months from the Effective Date. This Agreement shall not renew automatically and shall expire at the end of the initial term.",
+            "bbox": [
+              0.08,
+              0.59,
+              0.92,
+              0.67
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p7b7",
+            "block_type": "paragraph",
+            "text": "Either party may terminate this Agreement on 60 days written notice to the other party.",
+            "bbox": [
+              0.08,
+              0.69,
+              0.92,
+              0.76
             ],
             "confidence": 0.99,
             "row_index": null
@@ -584,7 +610,7 @@
           {
             "block_id": "p8b2",
             "block_type": "paragraph",
-            "text": "The parties shall keep confidential all information disclosed by the other party which is marked as confidential or which ought reasonably to be regarded as confidential, and shall not disclose it to any third party.",
+            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
             "bbox": [
               0.08,
               0.15,
@@ -597,7 +623,7 @@
           {
             "block_id": "p8b3",
             "block_type": "paragraph",
-            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
+            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
             "bbox": [
               0.08,
               0.26,
@@ -610,51 +636,12 @@
           {
             "block_id": "p8b4",
             "block_type": "paragraph",
-            "text": "Nothing in this Agreement is intended to, or shall be deemed to, establish any partnership or joint venture between the parties.",
+            "text": "This Agreement constitutes the entire agreement between the parties and supersedes all previous agreements, understandings and arrangements between them.",
             "bbox": [
               0.08,
               0.37,
               0.92,
               0.46
-            ],
-            "confidence": 0.99,
-            "row_index": null
-          },
-          {
-            "block_id": "p8b5",
-            "block_type": "paragraph",
-            "text": "This Agreement constitutes the entire agreement between the parties and supersedes all previous agreements, understandings and arrangements between them.",
-            "bbox": [
-              0.08,
-              0.48,
-              0.92,
-              0.57
-            ],
-            "confidence": 0.99,
-            "row_index": null
-          },
-          {
-            "block_id": "p8b6",
-            "block_type": "paragraph",
-            "text": "Initial Term: 48 months from the Effective Date. This Agreement shall renew automatically for successive periods of equal length unless terminated.",
-            "bbox": [
-              0.08,
-              0.59,
-              0.92,
-              0.67
-            ],
-            "confidence": 0.99,
-            "row_index": null
-          },
-          {
-            "block_id": "p8b7",
-            "block_type": "paragraph",
-            "text": "Either party may terminate this Agreement on 90 days written notice to the other party.",
-            "bbox": [
-              0.08,
-              0.69,
-              0.92,
-              0.76
             ],
             "confidence": 0.99,
             "row_index": null
@@ -695,7 +682,7 @@
           {
             "block_id": "p9b2",
             "block_type": "paragraph",
-            "text": "Any notice given under this Agreement shall be in writing and shall be delivered by hand, sent by pre-paid first class post, or sent by electronic mail to the address of the receiving party set out in the preamble.",
+            "text": "Nothing in this Agreement is intended to, or shall be deemed to, establish any partnership or joint venture between the parties.",
             "bbox": [
               0.08,
               0.15,
@@ -708,7 +695,7 @@
           {
             "block_id": "p9b3",
             "block_type": "paragraph",
-            "text": "This Agreement constitutes the entire agreement between the parties and supersedes all previous agreements, understandings and arrangements between them.",
+            "text": "Any notice given under this Agreement shall be in writing and shall be delivered by hand, sent by pre-paid first class post, or sent by electronic mail to the address of the receiving party set out in the preamble.",
             "bbox": [
               0.08,
               0.26,
@@ -721,7 +708,7 @@
           {
             "block_id": "p9b4",
             "block_type": "paragraph",
-            "text": "Neither party shall be liable for any failure or delay in performance to the extent that such failure or delay is caused by an event beyond its reasonable control, provided that the affected party gives prompt written notice.",
+            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
             "bbox": [
               0.08,
               0.37,
@@ -734,7 +721,7 @@
           {
             "block_id": "p9b5",
             "block_type": "paragraph",
-            "text": "The parties shall keep confidential all information disclosed by the other party which is marked as confidential or which ought reasonably to be regarded as confidential, and shall not disclose it to any third party.",
+            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
             "bbox": [
               0.08,
               0.48,
@@ -780,7 +767,7 @@
           {
             "block_id": "p10b2",
             "block_type": "paragraph",
-            "text": "Any notice given under this Agreement shall be in writing and shall be delivered by hand, sent by pre-paid first class post, or sent by electronic mail to the address of the receiving party set out in the preamble.",
+            "text": "Nothing in this Agreement is intended to, or shall be deemed to, establish any partnership or joint venture between the parties.",
             "bbox": [
               0.08,
               0.15,
@@ -793,7 +780,7 @@
           {
             "block_id": "p10b3",
             "block_type": "paragraph",
-            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
+            "text": "Neither party shall be liable for any failure or delay in performance to the extent that such failure or delay is caused by an event beyond its reasonable control, provided that the affected party gives prompt written notice.",
             "bbox": [
               0.08,
               0.26,
@@ -806,7 +793,7 @@
           {
             "block_id": "p10b4",
             "block_type": "paragraph",
-            "text": "This Agreement constitutes the entire agreement between the parties and supersedes all previous agreements, understandings and arrangements between them.",
+            "text": "Nothing in this Agreement is intended to, or shall be deemed to, establish any partnership or joint venture between the parties.",
             "bbox": [
               0.08,
               0.37,
@@ -825,6 +812,19 @@
               0.48,
               0.92,
               0.57
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p10b6",
+            "block_type": "paragraph",
+            "text": "The aggregate liability of either party under this Agreement shall not exceed $2,760,173.77.",
+            "bbox": [
+              0.08,
+              0.59,
+              0.92,
+              0.66
             ],
             "confidence": 0.99,
             "row_index": null
@@ -865,7 +865,7 @@
           {
             "block_id": "p11b2",
             "block_type": "paragraph",
-            "text": "The parties shall keep confidential all information disclosed by the other party which is marked as confidential or which ought reasonably to be regarded as confidential, and shall not disclose it to any third party.",
+            "text": "Nothing in this Agreement is intended to, or shall be deemed to, establish any partnership or joint venture between the parties.",
             "bbox": [
               0.08,
               0.15,
@@ -878,7 +878,7 @@
           {
             "block_id": "p11b3",
             "block_type": "paragraph",
-            "text": "Any notice given under this Agreement shall be in writing and shall be delivered by hand, sent by pre-paid first class post, or sent by electronic mail to the address of the receiving party set out in the preamble.",
+            "text": "Nothing in this Agreement is intended to, or shall be deemed to, establish any partnership or joint venture between the parties.",
             "bbox": [
               0.08,
               0.26,
@@ -891,7 +891,7 @@
           {
             "block_id": "p11b4",
             "block_type": "paragraph",
-            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
+            "text": "Nothing in this Agreement is intended to, or shall be deemed to, establish any partnership or joint venture between the parties.",
             "bbox": [
               0.08,
               0.37,
@@ -937,7 +937,7 @@
           {
             "block_id": "p12b2",
             "block_type": "paragraph",
-            "text": "This Agreement constitutes the entire agreement between the parties and supersedes all previous agreements, understandings and arrangements between them.",
+            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
             "bbox": [
               0.08,
               0.15,
@@ -950,7 +950,7 @@
           {
             "block_id": "p12b3",
             "block_type": "paragraph",
-            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
+            "text": "The parties shall keep confidential all information disclosed by the other party which is marked as confidential or which ought reasonably to be regarded as confidential, and shall not disclose it to any third party.",
             "bbox": [
               0.08,
               0.26,
@@ -963,12 +963,25 @@
           {
             "block_id": "p12b4",
             "block_type": "paragraph",
-            "text": "Nothing in this Agreement is intended to, or shall be deemed to, establish any partnership or joint venture between the parties.",
+            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
             "bbox": [
               0.08,
               0.37,
               0.92,
               0.46
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p12b5",
+            "block_type": "paragraph",
+            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
+            "bbox": [
+              0.08,
+              0.48,
+              0.92,
+              0.57
             ],
             "confidence": 0.99,
             "row_index": null
@@ -1009,7 +1022,7 @@
           {
             "block_id": "p13b2",
             "block_type": "paragraph",
-            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
+            "text": "If any provision of this Agreement is held to be invalid or unenforceable, that provision shall be severed and the remaining provisions shall continue in force.",
             "bbox": [
               0.08,
               0.15,
@@ -1022,7 +1035,7 @@
           {
             "block_id": "p13b3",
             "block_type": "paragraph",
-            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
+            "text": "If any provision of this Agreement is held to be invalid or unenforceable, that provision shall be severed and the remaining provisions shall continue in force.",
             "bbox": [
               0.08,
               0.26,
@@ -1081,7 +1094,7 @@
           {
             "block_id": "p14b2",
             "block_type": "paragraph",
-            "text": "Neither party shall be liable for any failure or delay in performance to the extent that such failure or delay is caused by an event beyond its reasonable control, provided that the affected party gives prompt written notice.",
+            "text": "The parties shall keep confidential all information disclosed by the other party which is marked as confidential or which ought reasonably to be regarded as confidential, and shall not disclose it to any third party.",
             "bbox": [
               0.08,
               0.15,
@@ -1094,7 +1107,7 @@
           {
             "block_id": "p14b3",
             "block_type": "paragraph",
-            "text": "Nothing in this Agreement is intended to, or shall be deemed to, establish any partnership or joint venture between the parties.",
+            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
             "bbox": [
               0.08,
               0.26,
@@ -1107,25 +1120,12 @@
           {
             "block_id": "p14b4",
             "block_type": "paragraph",
-            "text": "This Agreement constitutes the entire agreement between the parties and supersedes all previous agreements, understandings and arrangements between them.",
+            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
             "bbox": [
               0.08,
               0.37,
               0.92,
               0.46
-            ],
-            "confidence": 0.99,
-            "row_index": null
-          },
-          {
-            "block_id": "p14b5",
-            "block_type": "paragraph",
-            "text": "Any notice given under this Agreement shall be in writing and shall be delivered by hand, sent by pre-paid first class post, or sent by electronic mail to the address of the receiving party set out in the preamble.",
-            "bbox": [
-              0.08,
-              0.48,
-              0.92,
-              0.57
             ],
             "confidence": 0.99,
             "row_index": null
@@ -1179,7 +1179,7 @@
           {
             "block_id": "p15b3",
             "block_type": "paragraph",
-            "text": "Nothing in this Agreement is intended to, or shall be deemed to, establish any partnership or joint venture between the parties.",
+            "text": "The parties shall keep confidential all information disclosed by the other party which is marked as confidential or which ought reasonably to be regarded as confidential, and shall not disclose it to any third party.",
             "bbox": [
               0.08,
               0.26,
@@ -1198,19 +1198,6 @@
               0.37,
               0.92,
               0.46
-            ],
-            "confidence": 0.99,
-            "row_index": null
-          },
-          {
-            "block_id": "p15b5",
-            "block_type": "paragraph",
-            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
-            "bbox": [
-              0.08,
-              0.48,
-              0.92,
-              0.57
             ],
             "confidence": 0.99,
             "row_index": null
@@ -1251,7 +1238,7 @@
           {
             "block_id": "p16b2",
             "block_type": "paragraph",
-            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
+            "text": "If any provision of this Agreement is held to be invalid or unenforceable, that provision shall be severed and the remaining provisions shall continue in force.",
             "bbox": [
               0.08,
               0.15,
@@ -1264,7 +1251,7 @@
           {
             "block_id": "p16b3",
             "block_type": "paragraph",
-            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
+            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
             "bbox": [
               0.08,
               0.26,
@@ -1277,25 +1264,12 @@
           {
             "block_id": "p16b4",
             "block_type": "paragraph",
-            "text": "Neither party shall be liable for any failure or delay in performance to the extent that such failure or delay is caused by an event beyond its reasonable control, provided that the affected party gives prompt written notice.",
+            "text": "The parties shall keep confidential all information disclosed by the other party which is marked as confidential or which ought reasonably to be regarded as confidential, and shall not disclose it to any third party.",
             "bbox": [
               0.08,
               0.37,
               0.92,
               0.46
-            ],
-            "confidence": 0.99,
-            "row_index": null
-          },
-          {
-            "block_id": "p16b5",
-            "block_type": "paragraph",
-            "text": "The aggregate liability of either party under this Agreement shall not exceed $2,456,402.65.",
-            "bbox": [
-              0.08,
-              0.48,
-              0.92,
-              0.55
             ],
             "confidence": 0.99,
             "row_index": null
@@ -1336,7 +1310,7 @@
           {
             "block_id": "p17b2",
             "block_type": "paragraph",
-            "text": "If any provision of this Agreement is held to be invalid or unenforceable, that provision shall be severed and the remaining provisions shall continue in force.",
+            "text": "Any notice given under this Agreement shall be in writing and shall be delivered by hand, sent by pre-paid first class post, or sent by electronic mail to the address of the receiving party set out in the preamble.",
             "bbox": [
               0.08,
               0.15,
@@ -1349,7 +1323,7 @@
           {
             "block_id": "p17b3",
             "block_type": "paragraph",
-            "text": "Nothing in this Agreement is intended to, or shall be deemed to, establish any partnership or joint venture between the parties.",
+            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
             "bbox": [
               0.08,
               0.26,
@@ -1362,25 +1336,12 @@
           {
             "block_id": "p17b4",
             "block_type": "paragraph",
-            "text": "Any notice given under this Agreement shall be in writing and shall be delivered by hand, sent by pre-paid first class post, or sent by electronic mail to the address of the receiving party set out in the preamble.",
+            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
             "bbox": [
               0.08,
               0.37,
               0.92,
               0.46
-            ],
-            "confidence": 0.99,
-            "row_index": null
-          },
-          {
-            "block_id": "p17b5",
-            "block_type": "paragraph",
-            "text": "The parties shall keep confidential all information disclosed by the other party which is marked as confidential or which ought reasonably to be regarded as confidential, and shall not disclose it to any third party.",
-            "bbox": [
-              0.08,
-              0.48,
-              0.92,
-              0.57
             ],
             "confidence": 0.99,
             "row_index": null
@@ -1421,7 +1382,7 @@
           {
             "block_id": "p18b2",
             "block_type": "paragraph",
-            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
+            "text": "This Agreement constitutes the entire agreement between the parties and supersedes all previous agreements, understandings and arrangements between them.",
             "bbox": [
               0.08,
               0.15,
@@ -1434,7 +1395,7 @@
           {
             "block_id": "p18b3",
             "block_type": "paragraph",
-            "text": "Neither party shall be liable for any failure or delay in performance to the extent that such failure or delay is caused by an event beyond its reasonable control, provided that the affected party gives prompt written notice.",
+            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
             "bbox": [
               0.08,
               0.26,
@@ -1447,7 +1408,7 @@
           {
             "block_id": "p18b4",
             "block_type": "paragraph",
-            "text": "Nothing in this Agreement is intended to, or shall be deemed to, establish any partnership or joint venture between the parties.",
+            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
             "bbox": [
               0.08,
               0.37,
@@ -1506,7 +1467,7 @@
           {
             "block_id": "p19b3",
             "block_type": "paragraph",
-            "text": "Any notice given under this Agreement shall be in writing and shall be delivered by hand, sent by pre-paid first class post, or sent by electronic mail to the address of the receiving party set out in the preamble.",
+            "text": "Neither party shall be liable for any failure or delay in performance to the extent that such failure or delay is caused by an event beyond its reasonable control, provided that the affected party gives prompt written notice.",
             "bbox": [
               0.08,
               0.26,
@@ -1519,12 +1480,25 @@
           {
             "block_id": "p19b4",
             "block_type": "paragraph",
-            "text": "If any provision of this Agreement is held to be invalid or unenforceable, that provision shall be severed and the remaining provisions shall continue in force.",
+            "text": "Neither party shall be liable for any failure or delay in performance to the extent that such failure or delay is caused by an event beyond its reasonable control, provided that the affected party gives prompt written notice.",
             "bbox": [
               0.08,
               0.37,
               0.92,
               0.46
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p19b5",
+            "block_type": "paragraph",
+            "text": "Nothing in this Agreement is intended to, or shall be deemed to, establish any partnership or joint venture between the parties.",
+            "bbox": [
+              0.08,
+              0.48,
+              0.92,
+              0.57
             ],
             "confidence": 0.99,
             "row_index": null
@@ -1578,7 +1552,7 @@
           {
             "block_id": "p20b3",
             "block_type": "paragraph",
-            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
+            "text": "Any notice given under this Agreement shall be in writing and shall be delivered by hand, sent by pre-paid first class post, or sent by electronic mail to the address of the receiving party set out in the preamble.",
             "bbox": [
               0.08,
               0.26,
@@ -1591,7 +1565,7 @@
           {
             "block_id": "p20b4",
             "block_type": "paragraph",
-            "text": "Any notice given under this Agreement shall be in writing and shall be delivered by hand, sent by pre-paid first class post, or sent by electronic mail to the address of the receiving party set out in the preamble.",
+            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
             "bbox": [
               0.08,
               0.37,
@@ -1663,7 +1637,7 @@
           {
             "block_id": "p21b3",
             "block_type": "paragraph",
-            "text": "This Agreement constitutes the entire agreement between the parties and supersedes all previous agreements, understandings and arrangements between them.",
+            "text": "Any notice given under this Agreement shall be in writing and shall be delivered by hand, sent by pre-paid first class post, or sent by electronic mail to the address of the receiving party set out in the preamble.",
             "bbox": [
               0.08,
               0.26,
@@ -1676,7 +1650,7 @@
           {
             "block_id": "p21b4",
             "block_type": "paragraph",
-            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
+            "text": "This Agreement constitutes the entire agreement between the parties and supersedes all previous agreements, understandings and arrangements between them.",
             "bbox": [
               0.08,
               0.37,
@@ -1689,7 +1663,7 @@
           {
             "block_id": "p21b5",
             "block_type": "paragraph",
-            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
+            "text": "Nothing in this Agreement is intended to, or shall be deemed to, establish any partnership or joint venture between the parties.",
             "bbox": [
               0.08,
               0.48,
@@ -1735,7 +1709,7 @@
           {
             "block_id": "p22b2",
             "block_type": "paragraph",
-            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
+            "text": "This Agreement constitutes the entire agreement between the parties and supersedes all previous agreements, understandings and arrangements between them.",
             "bbox": [
               0.08,
               0.15,
@@ -1748,7 +1722,7 @@
           {
             "block_id": "p22b3",
             "block_type": "paragraph",
-            "text": "Neither party shall be liable for any failure or delay in performance to the extent that such failure or delay is caused by an event beyond its reasonable control, provided that the affected party gives prompt written notice.",
+            "text": "The parties shall keep confidential all information disclosed by the other party which is marked as confidential or which ought reasonably to be regarded as confidential, and shall not disclose it to any third party.",
             "bbox": [
               0.08,
               0.26,
@@ -1761,7 +1735,7 @@
           {
             "block_id": "p22b4",
             "block_type": "paragraph",
-            "text": "Neither party shall be liable for any failure or delay in performance to the extent that such failure or delay is caused by an event beyond its reasonable control, provided that the affected party gives prompt written notice.",
+            "text": "Any notice given under this Agreement shall be in writing and shall be delivered by hand, sent by pre-paid first class post, or sent by electronic mail to the address of the receiving party set out in the preamble.",
             "bbox": [
               0.08,
               0.37,
@@ -1774,25 +1748,84 @@
           {
             "block_id": "p22b5",
             "block_type": "paragraph",
-            "text": "Nothing in this Agreement is intended to, or shall be deemed to, establish any partnership or joint venture between the parties.",
+            "text": "Governing Law: this Agreement is governed by the laws of the State of Delaware.",
             "bbox": [
               0.08,
               0.48,
               0.92,
-              0.57
+              0.55
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          }
+        ]
+      },
+      {
+        "page_number": 23,
+        "width": 1240,
+        "height": 1754,
+        "blocks": [
+          {
+            "block_id": "p23b0",
+            "block_type": "page_header",
+            "text": "MASTER SERVICES AGREEMENT \u2014 Page 23",
+            "bbox": [
+              0.08,
+              0.01,
+              0.92,
+              0.035
             ],
             "confidence": 0.99,
             "row_index": null
           },
           {
-            "block_id": "p22b6",
-            "block_type": "paragraph",
-            "text": "Governing Law: this Agreement is governed by the laws of the England and Wales.",
+            "block_id": "p23b1",
+            "block_type": "heading",
+            "text": "WARRANTIES",
             "bbox": [
               0.08,
-              0.59,
+              0.07,
               0.92,
-              0.66
+              0.11
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p23b2",
+            "block_type": "paragraph",
+            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
+            "bbox": [
+              0.08,
+              0.15,
+              0.92,
+              0.24
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p23b3",
+            "block_type": "paragraph",
+            "text": "No variation of this Agreement shall be effective unless it is in writing and signed by an authorised representative of each of the parties.",
+            "bbox": [
+              0.08,
+              0.26,
+              0.92,
+              0.35
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p23b4",
+            "block_type": "paragraph",
+            "text": "If any provision of this Agreement is held to be invalid or unenforceable, that provision shall be severed and the remaining provisions shall continue in force.",
+            "bbox": [
+              0.08,
+              0.37,
+              0.92,
+              0.46
             ],
             "confidence": 0.99,
             "row_index": null
@@ -1833,7 +1866,7 @@
           {
             "block_id": "p24b2",
             "block_type": "signature",
-            "text": "Signed for and on behalf of Halcyon Systems Inc  Dana Whitfield  Chief Operating Officer  2026-08-24",
+            "text": "Signed for and on behalf of Halcyon Systems Inc  Dana Whitfield  Chief Operating Officer  2026-05-13",
             "bbox": [
               0.08,
               0.2,
@@ -1846,7 +1879,7 @@
           {
             "block_id": "p24b3",
             "block_type": "signature",
-            "text": "Signed for and on behalf of Meridian Components Ltd  Emil Sorensen  Managing Director  2026-08-24",
+            "text": "Signed for and on behalf of Meridian Components Ltd  Emil Sorensen  Managing Director  2026-05-13",
             "bbox": [
               0.08,
               0.32,
@@ -1866,24 +1899,24 @@
       "Halcyon Systems Inc",
       "Meridian Components Ltd"
     ],
-    "effective_date": "2026-12-02",
-    "initial_term_months": 48,
-    "auto_renews": true,
-    "termination_notice_days": 90,
-    "governing_law": "the England and Wales",
-    "liability_cap": "$2,456,402.65",
+    "effective_date": "2026-01-25",
+    "initial_term_months": 36,
+    "auto_renews": false,
+    "termination_notice_days": 60,
+    "governing_law": "the State of Delaware",
+    "liability_cap": "$2,760,173.77",
     "signatories": [
       {
         "party": "Halcyon Systems Inc",
         "name": "Dana Whitfield",
         "title": "Chief Operating Officer",
-        "date_signed": "2026-08-24"
+        "date_signed": "2026-05-13"
       },
       {
         "party": "Meridian Components Ltd",
         "name": "Emil Sorensen",
         "title": "Managing Director",
-        "date_signed": "2026-08-24"
+        "date_signed": "2026-05-13"
       }
     ]
   },
@@ -1908,32 +1941,32 @@
     ],
     "initial_term_months": [
       {
-        "page_number": 8,
-        "block_id": "p8b6"
+        "page_number": 7,
+        "block_id": "p7b6"
       }
     ],
     "auto_renews": [
       {
-        "page_number": 8,
-        "block_id": "p8b6"
+        "page_number": 7,
+        "block_id": "p7b6"
       }
     ],
     "termination_notice_days": [
       {
-        "page_number": 8,
-        "block_id": "p8b7"
+        "page_number": 7,
+        "block_id": "p7b7"
       }
     ],
     "liability_cap": [
       {
-        "page_number": 16,
-        "block_id": "p16b5"
+        "page_number": 10,
+        "block_id": "p10b6"
       }
     ],
     "governing_law": [
       {
         "page_number": 22,
-        "block_id": "p22b6"
+        "block_id": "p22b5"
       }
     ],
     "signatories": [

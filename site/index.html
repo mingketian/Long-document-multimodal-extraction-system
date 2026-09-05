@@ -184,10 +184,11 @@
 
 <header class="nav">
   <div class="wrap nav-inner">
-    <div class="brand">Throughline <span>· long-document extraction</span></div>
+    <div class="brand">Throughline <span>· Ricoh USA · AI/ML Engineering Internship</span></div>
     <nav class="nav-links">
       <a class="link" href="#problem">Problem</a>
-      <a class="link" href="#architecture">Architecture</a>
+      <a class="link" href="#architecture">Extraction</a>
+      <a class="link" href="#ops">Release automation</a>
       <a class="link" href="#results">Results</a>
       <a class="link" href="#run">Run it</a>
       <button id="themeToggle" class="btn" type="button" aria-label="Toggle colour theme">◐</button>
@@ -198,10 +199,12 @@
 
 <div class="hero">
   <div class="wrap">
-    <div class="eyebrow">Evidence-grounded document AI</div>
+    <div class="eyebrow">AI/ML Engineer Intern · Ricoh USA · Sep–Dec 2025</div>
     <h1>Cross-page state for<br>long-document extraction.</h1>
     <p class="lede">
-      A vision-language model can read a page. It cannot read forty at once. Throughline
+      A long-document extraction system built on the AWS GenAI IDP accelerator, and the
+      release-automation agent that keeps the platform underneath it current. A
+      vision-language model can read a page; it cannot read forty at once. Throughline
       reads a few pages at a time and carries forward a compact record of what is known,
       what is missing, and which tables are still running — so a bounded window behaves
       like a whole-document read.
@@ -372,8 +375,8 @@
     </figure>
 
     <div class="note">
-      <b>Read this as a curve, not a leaderboard.</b> The balanced profile reads 32% of the
-      pages for 77% of the accuracy ceiling. How good that trade is depends entirely on backend
+      <b>Read this as a curve, not a leaderboard.</b> The balanced profile reads 30% of the
+      pages for 81% of the accuracy ceiling. How good that trade is depends entirely on backend
       strength — with a keyword matcher the skipped pages were carrying real information, so the
       gap is wide. With the fine-tuned model above, the same mechanism cost 0.3 F1 for 20.2%
       less time. Both are the same trade at different backend strengths.
@@ -403,13 +406,82 @@
   </div>
 </section>
 
+
+<!-- ── part II: release automation ─────────────────────── -->
+<section id="ops">
+  <div class="wrap">
+    <div class="sec-eyebrow">Part II · release automation</div>
+    <h2>The other half: keeping the platform current.</h2>
+    <p class="sec-lede">
+      The extraction pipeline sits on a fork of <span class="mono">idp_common</span>, the
+      AWS GenAI IDP accelerator's shared library. Upstream ships releases regularly, and
+      syncing the fork by hand was slow enough to be deferred, prone to silent failures,
+      and left no trail. The Fork-Update Agent standardises that loop.
+    </p>
+
+    <div class="arch">
+      <img src="figures/ops_workflow.svg" alt="Fork-Update Agent: EventBridge fires every six hours into a Step Functions state machine over five Lambdas — detect release, notify, human review gate, deploy, smoke test, report — with a catch on every task.">
+    </div>
+
+    <div class="cards" style="margin-top:32px">
+      <div class="card">
+        <div class="tag">Decision</div>
+        <h3>The merge stays behind a human</h3>
+        <p>
+          Automating fork sync needs a GitHub credential with write access, and a personal
+          access token is the wrong credential — it carries one engineer's permissions into
+          an unattended system and dies when their access changes.
+        </p>
+        <div class="fix">→ <b>A deliberately drawn boundary</b>, not an unfinished feature. The Phase 2 code path exists; enabling it is configuration.</div>
+      </div>
+      <div class="card">
+        <div class="tag">Decision</div>
+        <h3>A smoke test, not a benchmark</h3>
+        <p>
+          It runs the <em>real</em> IDP Step Functions workflow on a fixture document and
+          asserts it completes. It does not measure accuracy.
+        </p>
+        <div class="fix">→ <b>A guardrail catches breakage</b> cheaply enough to run every time. Accuracy regression is the evaluation harness's job, on a labelled corpus.</div>
+      </div>
+      <div class="card">
+        <div class="tag">Decision</div>
+        <h3>Three failure classes</h3>
+        <p>
+          "The tests failed" is not actionable. Every task carries a catch that routes to a
+          notification tagged <span class="mono">DETECTION</span>,
+          <span class="mono">DEPLOY</span> or <span class="mono">SMOKE</span>.
+        </p>
+        <div class="fix">→ <b>The alert tells you which question to ask</b>, and carries the execution ARN as evidence.</div>
+      </div>
+    </div>
+
+    <div class="note">
+      <b>"No updates to perform" is success.</b> CloudFormation raises a
+      <span class="mono">ValidationError</span> when a stack update is a no-op. The handler
+      catches that specific case and treats it as success — a run where upstream changed
+      something that does not affect our stack is a <em>correct</em> run. Treating it as an
+      error would train the team to ignore failure alerts, which is the most expensive
+      possible outcome for a guardrail.
+    </div>
+
+    <p class="sec-lede" style="margin-top:28px">
+      Five Lambda handlers using only <span class="mono">boto3</span> and the standard
+      library, a CDK stack, the ASL definition, an operational runbook, and a formal PROCRV
+      design document — all in
+      <a href="https://github.com/mingketian/Long-document-multimodal-extraction-system/tree/main/ops/fork_update_agent"><span class="mono">ops/fork_update_agent/</span></a>.
+      Full write-up in
+      <a href="https://github.com/mingketian/Long-document-multimodal-extraction-system/blob/main/docs/FORK_UPDATE_AGENT.md">docs/FORK_UPDATE_AGENT.md</a>.
+    </p>
+  </div>
+</section>
+
 <!-- ── run it ──────────────────────────────────────────── -->
 <section id="run">
   <div class="wrap">
     <div class="sec-eyebrow">Run it</div>
     <h2>No GPU, no cloud, no weights.</h2>
     <p class="sec-lede">
-      The repository ships 20 synthetic documents and a deterministic rule-based backend, so the
+      The repository ships 20 synthetic documents (255 pages) and a deterministic rule-based backend, so the
       whole pipeline — grouping, state, continuation, attribution, early exit — runs end to end
       after a plain install.
     </p>
@@ -470,6 +542,7 @@ make results</pre>
         <a href="https://github.com/mingketian/Long-document-multimodal-extraction-system/blob/main/docs/ARCHITECTURE.md">Architecture</a>
         <a href="https://github.com/mingketian/Long-document-multimodal-extraction-system/blob/main/docs/EVALUATION.md">Evaluation</a>
         <a href="https://github.com/mingketian/Long-document-multimodal-extraction-system/blob/main/docs/DEPLOYMENT.md">Deployment &amp; MLOps</a>
+        <a href="https://github.com/mingketian/Long-document-multimodal-extraction-system/blob/main/docs/FORK_UPDATE_AGENT.md">Fork-Update Agent</a>
       </div>
       <div class="col">
         <h5>Built on</h5>
@@ -485,7 +558,7 @@ make results</pre>
       </div>
     </div>
     <div class="foot-bottom">
-      Mingke Tian · AI/ML Engineering Intern, Ricoh USA (Sep–Dec 2025).
+      <b>Mingke Tian</b> · AI/Machine Learning Engineer Intern, Ricoh USA, Inc. · Atlanta, GA · Sep–Dec 2025.
       <br>Clean-room implementation. No employer source, customer data or production
       configuration. All example documents are synthetic.
     </div>
@@ -562,13 +635,13 @@ make results</pre>
   const MEASURED = {
     groups: ["accuracy", "balanced", "fast"],
     series: [
-      { name: "Weighted F1", note: "higher is better", slot: 1, values: [0.364, 0.281, 0.091] },
-      { name: "Pages read", note: "lower is cheaper", slot: 2, values: [1.0, 0.316, 0.136] },
+      { name: "Weighted F1", note: "higher is better", slot: 1, values: [0.364, 0.293, 0.091] },
+      { name: "Pages read", note: "lower is cheaper", slot: 2, values: [1.0, 0.301, 0.129] },
     ],
     rows: [
       ["accuracy", "0.364", "100.0%", "1.000", "1.000"],
-      ["balanced", "0.281", "31.6%", "1.000", "1.000"],
-      ["fast", "0.091", "13.6%", "1.000", "1.000"],
+      ["balanced", "0.293", "30.1%", "1.000", "1.000"],
+      ["fast", "0.091", "12.9%", "1.000", "1.000"],
     ],
   };
 

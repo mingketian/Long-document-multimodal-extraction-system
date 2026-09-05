@@ -1781,6 +1781,91 @@
         ]
       },
       {
+        "page_number": 24,
+        "width": 1240,
+        "height": 1754,
+        "blocks": [
+          {
+            "block_id": "p24b0",
+            "block_type": "page_header",
+            "text": "MASTER SERVICES AGREEMENT \u2014 Page 24",
+            "bbox": [
+              0.08,
+              0.01,
+              0.92,
+              0.035
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p24b1",
+            "block_type": "heading",
+            "text": "INDEMNITIES",
+            "bbox": [
+              0.08,
+              0.07,
+              0.92,
+              0.11
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p24b2",
+            "block_type": "paragraph",
+            "text": "Each party shall perform its obligations under this Agreement with reasonable skill and care and in accordance with all applicable laws and regulations.",
+            "bbox": [
+              0.08,
+              0.15,
+              0.92,
+              0.24
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p24b3",
+            "block_type": "paragraph",
+            "text": "Any notice given under this Agreement shall be in writing and shall be delivered by hand, sent by pre-paid first class post, or sent by electronic mail to the address of the receiving party set out in the preamble.",
+            "bbox": [
+              0.08,
+              0.26,
+              0.92,
+              0.35
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p24b4",
+            "block_type": "paragraph",
+            "text": "Neither party shall be liable for any failure or delay in performance to the extent that such failure or delay is caused by an event beyond its reasonable control, provided that the affected party gives prompt written notice.",
+            "bbox": [
+              0.08,
+              0.37,
+              0.92,
+              0.46
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          },
+          {
+            "block_id": "p24b5",
+            "block_type": "paragraph",
+            "text": "The parties shall keep confidential all information disclosed by the other party which is marked as confidential or which ought reasonably to be regarded as confidential, and shall not disclose it to any third party.",
+            "bbox": [
+              0.08,
+              0.48,
+              0.92,
+              0.57
+            ],
+            "confidence": 0.99,
+            "row_index": null
+          }
+        ]
+      },
+      {
         "page_number": 25,
         "width": 1240,
         "height": 1754,
@@ -1814,7 +1899,7 @@
           {
             "block_id": "p25b2",
             "block_type": "signature",
-            "text": "Signed for and on behalf of Redpoint Analytics LLC  Dana Whitfield  Chief Operating Officer  2026-10-14",
+            "text": "Signed for and on behalf of Redpoint Analytics LLC  Dana Whitfield  Chief Operating Officer  2026-07-12",
             "bbox": [
               0.08,
               0.2,
@@ -1827,7 +1912,7 @@
           {
             "block_id": "p25b3",
             "block_type": "signature",
-            "text": "Signed for and on behalf of Meridian Components Ltd  Emil Sorensen  Managing Director  2026-10-14",
+            "text": "Signed for and on behalf of Meridian Components Ltd  Emil Sorensen  Managing Director  2026-07-12",
             "bbox": [
               0.08,
               0.32,
@@ -1858,13 +1943,13 @@
         "party": "Redpoint Analytics LLC",
         "name": "Dana Whitfield",
         "title": "Chief Operating Officer",
-        "date_signed": "2026-10-14"
+        "date_signed": "2026-07-12"
       },
       {
         "party": "Meridian Components Ltd",
         "name": "Emil Sorensen",
         "title": "Managing Director",
-        "date_signed": "2026-10-14"
+        "date_signed": "2026-07-12"
       }
     ]
   },

@@ -219,7 +219,7 @@ def figure_measured_tradeoff() -> None:
     fig.text(
         0.005, -0.10,
         "Early exit stops once every required key is present, schema-valid and evidenced. "
-        "On this corpus the balanced profile reads 32% of the pages\nfor 77% of the accuracy "
+        "On this corpus the balanced profile reads 30% of the pages\nfor 81% of the accuracy "
         "ceiling; the fast profile trades far more. A stronger backend narrows the accuracy "
         "gap - this is the floor, not the ceiling.",
         fontsize=8.5, color=INK_MUTED, ha="left", va="top",

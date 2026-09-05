@@ -423,7 +423,7 @@ def build_agreement(index: int, rng: random.Random) -> dict[str, Any]:
     liability_page = rng.randint(term_page + 2, max(term_page + 3, total_pages - 6))
     law_page = total_pages - 2
 
-    for page_number in range(2, total_pages - 1):
+    for page_number in range(2, total_pages):
         blocks = [
             _block(f"p{page_number}b0", page_number, "page_header",
                    f"{title} — Page {page_number}", 0.01, 0.035),

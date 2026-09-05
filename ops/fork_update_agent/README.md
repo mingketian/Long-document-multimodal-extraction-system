@@ -1,3 +1,14 @@
+> [!NOTE]
+> This is the **original Fork-Update Agent project README, preserved as written**.
+> When the project was vendored into this repository, two files moved to the repository
+> root: the design document is now
+> [`docs/PROCRV_document.pdf`](../../docs/PROCRV_document.pdf) and the runbook is now
+> [`docs/FORK_UPDATE_RUNBOOK.md`](../../docs/FORK_UPDATE_RUNBOOK.md). The links below
+> have been repointed accordingly; nothing else has been changed.
+>
+> For the write-up in the context of the whole project, see
+> [`docs/FORK_UPDATE_AGENT.md`](../../docs/FORK_UPDATE_AGENT.md).
+
 # Fork-Update Agent
 
 An automated system for detecting upstream releases, notifying teams, deploying updates, and validating the GenAI IDP accelerator in the sandbox environment.
@@ -144,7 +155,7 @@ The solution is built on AWS Step Functions orchestrating five Lambda functions:
 
 ### Configuration Parameters
 
-The CDK stack uses context values for configuration. Set these in [cdk.context.json](infrastructure/cdk/cdk.context.json) or pass via `--context`:
+The CDK stack uses context values for configuration. Set these in `infrastructure/cdk/cdk.context.json` or pass via `--context`:
 
 - `account`: AWS account ID (default: from environment)
 - `region`: AWS region (default: `us-east-1`)
@@ -326,8 +337,8 @@ Lambda functions intentionally use only `boto3` and Python standard library to a
 
 ## Documentation
 
-- **[PROCRV Document](docs/PROCRV_document.pdf):** Architecture, design decisions, and constraints
-- **[Operational Runbook](docs/runbook.md):** Deployment procedures and troubleshooting
+- **[PROCRV Document](../../docs/PROCRV_document.pdf):** Architecture, design decisions, and constraints
+- **[Operational Runbook](../../docs/FORK_UPDATE_RUNBOOK.md):** Deployment procedures and troubleshooting
 - **This README:** Quick start and usage guide
 
 ## License

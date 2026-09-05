@@ -6,7 +6,7 @@ they are kept in separate files, separate figures, and separate sections here.
 | | **Reported outcomes** | **Measured in this repository** |
 |---|---|---|
 | Source | Ricoh USA deployment, Sep–Dec 2025 | `make results`, run right now |
-| Data | ~600 proprietary enterprise documents, 3.2K pages | 20 synthetic documents, 246 pages, in `examples/` |
+| Data | ~600 proprietary enterprise documents, 3.2K pages | 20 synthetic documents, 255 pages, in `examples/` |
 | Model | Qwen2.5-VL-7B, LoRA fine-tuned, on SageMaker | Rule-based baseline backend (no model) |
 | Reproducible here? | **No** | Yes |
 | Files | `results/tables/deployment_*.csv` | `results/tables/measured_*.csv` |
@@ -122,7 +122,7 @@ VLM is measured against, not a claim about the VLM.
 | Schema | Documents | Pages | Pages/doc | Keys | Required |
 |---|---:|---:|---:|---:|---:|
 | `invoice` | 12 | 69 | 5.8 | 11 | 5 |
-| `service_agreement` | 8 | 177 | 22.1 | 9 | 4 |
+| `service_agreement` | 8 | 186 | 23.2 | 9 | 3 |
 
 The two corpora exercise different halves of the system. Invoices have a **required
 table that spans page groups**; agreements are **long, with no required table and key
@@ -150,10 +150,10 @@ On the 18–26 page agreements:
 | Profile | Weighted F1 | Pages read | Schema-valid | Citation precision |
 |---|---:|---:|---:|---:|
 | `accuracy` | 0.364 | 100.0% | 1.000 | 1.000 |
-| `balanced` | 0.281 | 31.6% | 1.000 | 1.000 |
-| `fast` | 0.091 | 13.6% | 1.000 | 1.000 |
+| `balanced` | 0.293 | 30.1% | 1.000 | 1.000 |
+| `fast` | 0.091 | 12.9% | 1.000 | 1.000 |
 
-Read this as a curve, not a leaderboard. `balanced` reads **32% of the pages for 77% of
+Read this as a curve, not a leaderboard. `balanced` reads **30% of the pages for 81% of
 the accuracy ceiling**. Whether that is a good trade depends entirely on how strong the
 backend is — with a weak extractor the pages it skips were carrying real information,
 and the gap is wide. The reported deployment figure above (−0.3 F1 for 20.2% less time)

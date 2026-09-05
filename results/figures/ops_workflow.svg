@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 720" width="1300" height="720" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-labelledby="opsTitle opsDesc">
+  <title id="opsTitle">Fork-Update Agent workflow</title>
+  <desc id="opsDesc">An EventBridge rule fires every six hours into a Step Functions state machine. DetectReleaseFn compares the upstream GitHub release against the version recorded in SSM. A choice state routes no-change runs to a skipped notification. On a new release, PrepareMergeFn notifies the team via SNS, a human reviews and syncs the fork, DeploySandboxFn updates the CloudFormation stack, RunSmokeTestFn executes the real IDP Step Functions workflow on a fixture document, and ReportStatusFn publishes the outcome and records the new version. Every task has a catch that routes to a failure notification tagged with the stage that failed.</desc>
+
+  <style>
+    .surface  { fill: #fcfcfb; }
+    .card     { fill: #ffffff; stroke: #e2e1dc; stroke-width: 1.5; }
+    .card-key { fill: #eef5fe; stroke: #2a78d6; stroke-width: 1.75; }
+    .card-hum { fill: #fdf1ea; stroke: #eb6834; stroke-width: 1.75; }
+    .card-mut { fill: #f6f5f2; stroke: #e2e1dc; stroke-width: 1.5; }
+    .card-err { fill: #fdf1ea; stroke: #e8c9b6; stroke-width: 1.5; }
+    .lane     { fill: #f7f9fc; stroke: #e2e8f2; stroke-width: 1.5; }
+    .t-title  { fill: #0b0b0b; font-size: 21px; font-weight: 700; }
+    .t-sub    { fill: #84837c; font-size: 13px; }
+    .t-lane   { fill: #84837c; font-size: 11.5px; font-weight: 700; letter-spacing: 0.09em; }
+    .t-node   { fill: #0b0b0b; font-size: 13.5px; font-weight: 600; }
+    .t-meta   { fill: #6c6b64; font-size: 11px; }
+    .t-mono   { fill: #52514e; font-size: 10.5px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .t-step   { fill: #a3a29a; font-size: 10px; font-weight: 700; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .t-edge   { fill: #84837c; font-size: 10.5px; }
+    .t-edge-o { fill: #eb6834; font-size: 10.5px; font-weight: 600; }
+    .flow     { stroke: #b6b5ad; stroke-width: 1.75; fill: none; }
+    .flow-b   { stroke: #2a78d6; stroke-width: 2; fill: none; }
+    .flow-e   { stroke: #d9a488; stroke-width: 1.5; fill: none; stroke-dasharray: 5 4; }
+    .diamond  { fill: #ffffff; stroke: #2a78d6; stroke-width: 1.75; }
+  </style>
+
+  <defs>
+    <marker id="og" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#b6b5ad"/>
+    </marker>
+    <marker id="ob" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#2a78d6"/>
+    </marker>
+    <marker id="oe" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#d9a488"/>
+    </marker>
+  </defs>
+
+  <rect class="surface" x="0" y="0" width="1300" height="720"/>
+
+  <text class="t-title" x="32" y="40">Fork-Update Agent — release automation for the platform underneath</text>
+  <text class="t-sub"   x="32" y="63">Step Functions over five Lambdas. Detection and validation are automated; the merge itself stays behind a human review gate, because automating it would need a repository write credential.</text>
+
+  <!-- trigger -->
+  <rect class="card-mut" x="32" y="100" width="188" height="62" rx="9"/>
+  <text class="t-step" x="48" y="122">EVENTBRIDGE</text>
+  <text class="t-node" x="48" y="142">Schedule</text>
+  <text class="t-mono" x="48" y="156">rate(6 hours)</text>
+
+  <path class="flow" d="M 220 131 H 254" marker-end="url(#og)"/>
+
+  <!-- state machine lane -->
+  <rect class="lane" x="258" y="86" width="1010" height="504" rx="12"/>
+  <text class="t-lane" x="278" y="110">STEP FUNCTIONS STATE MACHINE · 2 h TIMEOUT · PER-TASK CATCH</text>
+
+  <!-- 1 detect -->
+  <rect class="card" x="282" y="126" width="206" height="104" rx="9"/>
+  <text class="t-step" x="298" y="148">01 · DetectReleaseFn</text>
+  <text class="t-node" x="298" y="168">Is upstream ahead?</text>
+  <text class="t-meta" x="298" y="187">GitHub /releases/latest,</text>
+  <text class="t-meta" x="298" y="203">falling back to /tags</text>
+  <text class="t-mono" x="298" y="221">vs. version in SSM</text>
+
+  <path class="flow-b" d="M 488 178 H 526" marker-end="url(#ob)"/>
+
+  <!-- choice -->
+  <path class="diamond" d="M 604 132 L 668 178 L 604 224 L 540 178 Z"/>
+  <text class="t-mono" x="604" y="175" text-anchor="middle" fill="#2a78d6">AnyUpdate?</text>
+  <text class="t-meta" x="604" y="192" text-anchor="middle">Choice state</text>
+
+  <!-- no branch -->
+  <path class="flow" d="M 604 224 V 268 H 800 V 300" marker-end="url(#og)"/>
+  <text class="t-edge" x="614" y="244">false — nothing to do</text>
+
+  <!-- yes branch -->
+  <path class="flow-b" d="M 668 178 H 704" marker-end="url(#ob)"/>
+  <text class="t-edge" x="672" y="168">true</text>
+
+  <!-- 2 prepare merge -->
+  <rect class="card" x="708" y="126" width="206" height="104" rx="9"/>
+  <text class="t-step" x="724" y="148">02 · PrepareMergeFn</text>
+  <text class="t-node" x="724" y="168">Notify the team</text>
+  <text class="t-meta" x="724" y="187">SNS with release notes</text>
+  <text class="t-meta" x="724" y="203">and a link to the fork</text>
+  <text class="t-mono" x="724" y="221">no credential required</text>
+
+  <path class="flow-b" d="M 914 178 H 950" marker-end="url(#ob)"/>
+
+  <!-- human gate -->
+  <rect class="card-hum" x="954" y="126" width="290" height="104" rx="9"/>
+  <text class="t-step" x="970" y="148" fill="#eb6834">HUMAN REVIEW GATE</text>
+  <text class="t-node" x="970" y="168">A person clicks “Sync fork”</text>
+  <text class="t-meta" x="970" y="187">Automating this needs a service-account</text>
+  <text class="t-meta" x="970" y="203">token with write access. The code path</text>
+  <text class="t-meta" x="970" y="219">exists; enabling it is configuration.</text>
+
+  <!-- wrap down -->
+  <path class="flow-b" d="M 1099 230 V 264 H 385 V 300" marker-end="url(#ob)"/>
+
+  <!-- 3 deploy -->
+  <rect class="card" x="282" y="300" width="206" height="112" rx="9"/>
+  <text class="t-step" x="298" y="322">03 · DeploySandboxFn</text>
+  <text class="t-node" x="298" y="342">Update the stack</text>
+  <text class="t-meta" x="298" y="361">CloudFormation UpdateStack,</text>
+  <text class="t-meta" x="298" y="377">polled to a 30-minute bound</text>
+  <text class="t-meta" x="298" y="396">“No updates to perform” is</text>
+  <text class="t-meta" x="298" y="406">success, not an error.</text>
+
+  <path class="flow-b" d="M 488 356 H 524" marker-end="url(#ob)"/>
+
+  <!-- 4 smoke -->
+  <rect class="card-key" x="528" y="300" width="222" height="112" rx="9"/>
+  <text class="t-step" x="544" y="322">04 · RunSmokeTestFn</text>
+  <text class="t-node" x="544" y="342">The guardrail</text>
+  <text class="t-meta" x="544" y="361">Executes the real IDP Step</text>
+  <text class="t-meta" x="544" y="377">Functions workflow on a fixed</text>
+  <text class="t-meta" x="544" y="393">S3 fixture document, polled</text>
+  <text class="t-meta" x="544" y="406">every 15 s to a terminal state.</text>
+
+  <path class="flow-b" d="M 750 356 H 786" marker-end="url(#ob)"/>
+
+  <!-- 5 report -->
+  <rect class="card-key" x="790" y="300" width="222" height="112" rx="9"/>
+  <text class="t-step" x="806" y="322">05 · ReportStatusFn</text>
+  <text class="t-node" x="806" y="342">Report and record</text>
+  <text class="t-meta" x="806" y="361">SNS with links to the evidence:</text>
+  <text class="t-meta" x="806" y="377">execution ARN, deploy id, build id.</text>
+  <text class="t-meta" x="806" y="396">Writes the new version to SSM</text>
+  <text class="t-meta" x="806" y="406">only on SUCCESS.</text>
+
+  <!-- outcomes -->
+  <rect class="card-mut" x="1044" y="300" width="200" height="34" rx="7"/>
+  <text class="t-mono" x="1060" y="322" fill="#1baf7a">SUCCESS</text>
+  <text class="t-meta" x="1136" y="322">version advanced</text>
+
+  <rect class="card-mut" x="1044" y="342" width="200" height="34" rx="7"/>
+  <text class="t-mono" x="1060" y="364" fill="#84837c">SKIPPED</text>
+  <text class="t-meta" x="1136" y="364">already current</text>
+
+  <rect class="card-err" x="1044" y="384" width="200" height="34" rx="7"/>
+  <text class="t-mono" x="1060" y="406" fill="#eb6834">FAILED</text>
+  <text class="t-meta" x="1136" y="406">tagged by stage</text>
+
+  <path class="flow-b" d="M 1012 356 H 1040" marker-end="url(#ob)"/>
+
+  <!-- failure catches -->
+  <rect class="card-err" x="282" y="452" width="730" height="112" rx="9"/>
+  <text class="t-step" x="300" y="474" fill="#eb6834">CATCH ON EVERY TASK — add_catch(result_path="$.error")</text>
+  <text class="t-node" x="300" y="496">Three failure classes, reported separately so triage is unambiguous</text>
+  <text class="t-meta" x="300" y="518">· DETECTION — GitHub unreachable, or the version cannot be determined</text>
+  <text class="t-meta" x="300" y="536">· DEPLOY — CloudFormation update failed, rolled back, or timed out; stack events are attached</text>
+  <text class="t-meta" x="300" y="554">· SMOKE — the IDP workflow failed, timed out, or was aborted. This is the breakage signal.</text>
+
+  <path class="flow-e" d="M 385 412 V 448" marker-end="url(#oe)"/>
+  <path class="flow-e" d="M 639 412 V 448" marker-end="url(#oe)"/>
+  <path class="flow-e" d="M 385 230 C 260 230 262 452 278 480" marker-end="url(#oe)"/>
+  <path class="flow-e" d="M 1012 508 H 1140 V 422" marker-end="url(#oe)"/>
+
+  <!-- footnote -->
+  <text class="t-mono" x="32" y="630">Least privilege: DetectReleaseFn reads public GitHub + one SSM parameter · DeploySandboxFn updates one named stack · nothing has production access.</text>
+  <text class="t-mono" x="32" y="652">Secrets live in SSM Parameter Store as SecureString. CloudWatch retains 30 days. The system operates only in the non-production sandbox account.</text>
+  <text class="t-mono" x="32" y="682">ops/fork_update_agent/ — CDK stack, five Lambda handlers, the ASL definition, and the PROCRV design document.</text>
+</svg>
